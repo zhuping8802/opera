@@ -22,6 +22,7 @@ public final class SerialNumber {
 	private static Map<String, SortedSet<Integer>> avaliableSerial = new HashMap<String, SortedSet<Integer>>();
 	// 数字格式化工具缓存器
 	private static Map<String, NumberFormat> formatBuffer = new HashMap<String, NumberFormat>();
+	private static final String SERIAL_NUMBER_KEY = "serial_number_";
 	
 	private SerialNumber(){
 		
@@ -70,6 +71,15 @@ public final class SerialNumber {
 	}
 	
 	/**
+	 * 获取流水号
+	 * @param digit 流水号位数
+	 * @return
+	 */
+	public static String getSerialNumber(int digit){
+		return getSerialNumber(SERIAL_NUMBER_KEY + digit, digit);
+	}
+	
+	/**
 	 * 回收被使用的流水号
 	 * @param key 流水号版本
 	 * @param serialNumber　待回收的流水号
@@ -82,6 +92,16 @@ public final class SerialNumber {
 		}
 		sortedSet.add(number);
 		avaliableSerial.put(key, sortedSet);
+	}
+	
+	/**
+	 * 回收被使用的流水号
+	 * @param serialNumber　待回收的流水号
+	 */
+	public static void recoverSerivalNumber(String serialNumber){
+		int digit = serialNumber.length();
+		String key = SERIAL_NUMBER_KEY + digit;
+		recoverSerivalNumber(key, serialNumber);
 	}
 	
 	/**
@@ -115,6 +135,18 @@ public final class SerialNumber {
 		
 		for(int i = 0; i < 10; i++){
 			System.out.println("--------------------------" + SerialNumber.getSerialNumber("key", 4));
+		}
+		
+		for(int i = 0; i < 20; i++){
+			System.out.println("================" + SerialNumber.getSerialNumber(6));
+		}
+		
+		SerialNumber.recoverSerivalNumber("000015");
+		SerialNumber.recoverSerivalNumber("000002");
+		SerialNumber.recoverSerivalNumber("000019");
+		
+		for(int i = 0; i < 10; i++){
+			System.out.println("--------------------------" + SerialNumber.getSerialNumber(6));
 		}
 	}
 
