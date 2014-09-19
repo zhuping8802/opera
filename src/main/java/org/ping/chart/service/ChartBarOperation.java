@@ -1,4 +1,4 @@
-package org.ping.chart;
+package org.ping.chart.service;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -13,6 +13,9 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.BarRenderer3D;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
+import org.ping.chart.bean.Chart;
+import org.ping.chart.bean.ChartBar;
+import org.ping.chart.util.ChartUtil;
 
 
 public class ChartBarOperation extends ChartOperation {
@@ -23,8 +26,21 @@ public class ChartBarOperation extends ChartOperation {
 		this.bar = bar;
 	}
 
+	public ChartBarOperation() {
+		super();
+	}
+
+	public ChartBar getBar() {
+		return bar;
+	}
+
+	public void setBar(ChartBar bar) {
+		this.bar = bar;
+	}
+
 	@Override
-	protected JFreeChart createChart() {
+	public JFreeChart createChart(Chart chart) {
+		ChartBar bar = (ChartBar) chart;
 		//设置柱子的颜色
 		BarRenderer barRenderer = null;
 		if(bar.isBarChart3D()){
@@ -48,22 +64,22 @@ public class ChartBarOperation extends ChartOperation {
 	  	barRenderer.setDrawBarOutline(true);
 		
 		CategoryDataset dataset = bar.getDataset();
-		JFreeChart chart = null;
+		JFreeChart freeChart = null;
 		if(bar.isBarChart3D()){
-			chart = ChartFactory.createBarChart3D(bar.getMainTitle(), null,
+			freeChart = ChartFactory.createBarChart3D(bar.getMainTitle(), null,
 					null, dataset, PlotOrientation.VERTICAL, true, true, false);
 		}else{
-			chart = ChartFactory.createBarChart(bar.getMainTitle(), null,
+			freeChart = ChartFactory.createBarChart(bar.getMainTitle(), null,
 					null, dataset, PlotOrientation.VERTICAL, true, true, false);
 		}
 		if(bar.getSubTitle() != null && !"".equals(bar.getSubTitle())){
-			chart.addSubtitle(new TextTitle(bar.getSubTitle()));
+			freeChart.addSubtitle(new TextTitle(bar.getSubTitle()));
 		}
 		// 设置背景色
-		chart.setBackgroundPaint(Color.WHITE);		
+		freeChart.setBackgroundPaint(Color.WHITE);		
 		//chart.setBorderVisible(true);
 		//chart.setBorderPaint(Color.BLUE);	
-		CategoryPlot plot = chart.getCategoryPlot();
+		CategoryPlot plot = freeChart.getCategoryPlot();
 		plot.setRenderer(barRenderer);
 		plot.setBackgroundPaint(Color.WHITE);
 		
@@ -78,7 +94,7 @@ public class ChartBarOperation extends ChartOperation {
 	  	plot.setNoDataMessageFont(new Font(ChartUtil.FONT_NAME, Font.PLAIN, ChartUtil.FONT_SIZE_BIG));
 	  	
 	  	//设置标题字体 
-		TextTitle textTitle = chart.getTitle(); 
+		TextTitle textTitle = freeChart.getTitle(); 
 		if(textTitle != null){
 			textTitle.setFont(new Font(ChartUtil.FONT_NAME, Font.PLAIN, ChartUtil.FONT_SIZE_BIG)); 
 		}
@@ -99,7 +115,7 @@ public class ChartBarOperation extends ChartOperation {
 		//设置Y轴的标题文字 
 		rAxis.setLabelFont(new Font(ChartUtil.FONT_NAME, Font.PLAIN, ChartUtil.FONT_SIZE_SMALL));      
 		//底部汉字乱码的问题  
-		chart.getLegend().setItemFont(new Font(ChartUtil.FONT_NAME,Font.PLAIN,ChartUtil.FONT_SIZE_SMALL)); 
+		freeChart.getLegend().setItemFont(new Font(ChartUtil.FONT_NAME,Font.PLAIN,ChartUtil.FONT_SIZE_SMALL)); 
 		
 		//重新计算柱状图图形大小
 		int width = bar.getBarWidth() * bar.getRowKeys().size() * bar.getColumnKeys().size();
@@ -108,6 +124,6 @@ public class ChartBarOperation extends ChartOperation {
 		height = height <= 0 ? bar.getImageHeight() : height;
 		bar.setImageHeight(height);
 		bar.setImageWidth(width);
-		return chart;
+		return freeChart;
 	}
 }

@@ -1,4 +1,4 @@
-package org.ping.chart;
+package org.ping.chart.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.servlet.ServletUtilities;
+import org.ping.chart.bean.Chart;
+import org.ping.chart.service.ChartOperation;
 
 
 /**
@@ -85,7 +87,7 @@ public class ChartUtil {
 			Class target = ChartUtil.class.forName(className + "Operation");
 			Constructor constructor = target.getConstructor(chart.getClass());
 			ChartOperation chartOperation = (ChartOperation) constructor.newInstance(chart);
-			freeChart = chartOperation.createChart();
+			freeChart = chartOperation.createChart(chart);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

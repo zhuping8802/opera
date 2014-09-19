@@ -1,4 +1,4 @@
-package org.ping.chart;
+package org.ping.chart.util;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

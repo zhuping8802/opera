@@ -1,10 +1,12 @@
-package org.ping.chart;
+package org.ping.chart.service;
 
 import java.awt.Font;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
+import org.ping.chart.bean.Chart;
+import org.ping.chart.util.ChartUtil;
 
 
 /**
@@ -18,7 +20,7 @@ public abstract class ChartOperation {
 	 * 生成图表
 	 * @return
 	 */
-	protected abstract JFreeChart createChart();
+	public abstract JFreeChart createChart(Chart chart);
 	
 	static{
 		//创建主题样式  

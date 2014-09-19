@@ -9,8 +9,8 @@ public interface Operation {
 
 	void print();
 	
-	public static void main(String[] args) {
-		Operation operation = new ProxyPerson();
-		operation.print();
-	}
+//	public static void main(String[] args) {
+//		Operation operation = new ProxyPerson();
+//		operation.print();
+//	}
 }

@@ -1,4 +1,4 @@
-package org.ping.chart;
+package org.ping.chart.bean;
 
 import org.jfree.data.general.DefaultPieDataset;
 
@@ -10,6 +10,11 @@ import org.jfree.data.general.DefaultPieDataset;
 public class ChartPie extends Chart{
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6042232307624488531L;
+
+	/**
 	 * 柱状图数据集
 	 */
 	private DefaultPieDataset dataset;
@@ -20,6 +25,10 @@ public class ChartPie extends Chart{
 
 	public void setDataset(DefaultPieDataset dataset) {
 		this.dataset = dataset;
+	}
+
+	public ChartPie() {
+		super();
 	}
 
 	public ChartPie(DefaultPieDataset dataset) {

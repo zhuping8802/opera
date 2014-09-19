@@ -9,16 +9,16 @@ public class OperationFactory {
 
 	public static Operation getOperation(String type){
 		Operation operation = null;
-		switch (type) {
-			case "+":
-				operation = new OperationAdd();
-				break;
-			case "*":
-				operation = new OperationMul();
-				break;
-			default:
-				break;
-		}
+//		switch (type) {
+//			case "+":
+//				operation = new OperationAdd();
+//				break;
+//			case "*":
+//				operation = new OperationMul();
+//				break;
+//			default:
+//				break;
+//		}
 		return operation;
 	}
 	

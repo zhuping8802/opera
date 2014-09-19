@@ -1,11 +1,20 @@
-package org.ping.chart;
+package org.ping.chart.bean;
+
+import java.io.Serializable;
+
+import org.ping.chart.util.ChartUtil;
 
 /**
  * 图表公用类
  * @author ping.zhu
  *
  */
-public class Chart {
+public class Chart implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1563671928398755700L;
 
 	/**
 	 * 显示主标题

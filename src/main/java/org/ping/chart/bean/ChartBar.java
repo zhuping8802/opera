@@ -1,4 +1,4 @@
-package org.ping.chart;
+package org.ping.chart.bean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +13,20 @@ import org.jfree.data.category.DefaultCategoryDataset;
 @SuppressWarnings("rawtypes")
 public class ChartBar extends Chart{
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5047510866150387968L;
+
+	/**
 	 * 柱状图统计指标集合，即分组的柱子代表意思
 	 * 如：{"工作项", "交付物"}
 	 */
 	private List rowKeys = null;
 	
+	public ChartBar() {
+		super();
+	}
+
 	/**
 	 * 柱状图统计范围集合，即每个分组的名称
 	 * 如：{"项目１", "项目２"}

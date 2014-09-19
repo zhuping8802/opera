@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop.xsd 
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc 
+    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-3.0.xsd ">
+	<!-- 任务扫描注解(异步,定时) -->
+	<task:annotation-driven />
+
+	<!-- 强制使用CGLIB代理 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- spring 注解支撑 -->
+	<context:annotation-config />
+	
+	<!-- 注册对应包下的controller到上下文中 -->
+	<context:component-scan base-package="org.ping">
+		<context:include-filter type="regex" expression="org.ping.chart..*"/>
+		<context:include-filter type="regex" expression="org.ping.spring..*"/>
+	</context:component-scan>
+	
+	<import resource="classpath:config/spring/spring-mvc.xml" />
+</beans>

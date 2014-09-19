@@ -3,34 +3,65 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
-  
-  <servlet>
+	<display-name>Archetype Created Web Application</display-name>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath*:config/spring/applicationContext.xml
+		</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+	<filter>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>
+			org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<!-- 强制转换 -->
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
 		<servlet-name>DisplayChart</servlet-name>
 		<servlet-class>
 			org.jfree.chart.servlet.DisplayChart
 		</servlet-class>
 	</servlet>
-	<servlet>
-		<servlet-name>BarServlet</servlet-name>
-		<servlet-class>org.ping.chart.BarServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>PieServlet</servlet-name>
-		<servlet-class>org.ping.chart.PieServlet</servlet-class>
-	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>DisplayChart</servlet-name>
 		<url-pattern>/DisplayChart</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>BarServlet</servlet-name>
-		<url-pattern>/servlet/BarServlet</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>PieServlet</servlet-name>
-		<url-pattern>/servlet/PieServlet</url-pattern>
-	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>dispatchServlet</servlet-name>
+		<servlet-class>org.ping.spring.OperaDispatchServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				classpath*:config/spring/applicationContext.xml
+			</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatchServlet</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+
 </web-app>
