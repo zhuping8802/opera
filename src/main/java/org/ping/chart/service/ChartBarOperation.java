@@ -16,27 +16,10 @@ import org.jfree.data.category.CategoryDataset;
 import org.ping.chart.bean.Chart;
 import org.ping.chart.bean.ChartBar;
 import org.ping.chart.util.ChartUtil;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class ChartBarOperation extends ChartOperation {
-	private ChartBar bar = null;
-	
-	public ChartBarOperation(ChartBar bar) {
-		super();
-		this.bar = bar;
-	}
-
-	public ChartBarOperation() {
-		super();
-	}
-
-	public ChartBar getBar() {
-		return bar;
-	}
-
-	public void setBar(ChartBar bar) {
-		this.bar = bar;
-	}
 
 	@Override
 	public JFreeChart createChart(Chart chart) {

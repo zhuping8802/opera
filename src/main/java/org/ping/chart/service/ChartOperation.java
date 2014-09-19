@@ -2,11 +2,15 @@ package org.ping.chart.service;
 
 import java.awt.Font;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
 import org.ping.chart.bean.Chart;
 import org.ping.chart.util.ChartUtil;
+import org.springframework.stereotype.Service;
 
 
 /**
@@ -14,6 +18,7 @@ import org.ping.chart.util.ChartUtil;
  * @author ping.zhu
  *
  */
+@Service
 public abstract class ChartOperation {
 
 	/**
@@ -21,6 +26,31 @@ public abstract class ChartOperation {
 	 * @return
 	 */
 	public abstract JFreeChart createChart(Chart chart);
+	
+	/**
+	 * 下载图片
+	 * @param response
+	 * @param chart
+	 */
+	public final void exportChart(HttpServletResponse response, Chart chart){
+		JFreeChart freeChart = this.createChart(chart);
+		if(freeChart != null){
+			ChartUtil.exportChart(freeChart, chart.getImageType(), chart.getImageWidth(), chart.getImageHeight(), response);
+		}
+	}
+	
+	/**
+	 * 导出图片到页面
+	 * @param request
+	 * @param response
+	 * @param chart
+	 */
+	public final void exportChartToPage(HttpServletRequest request, HttpServletResponse response, Chart chart){
+		JFreeChart freeChart = this.createChart(chart);
+		if(freeChart != null){
+			ChartUtil.exportChartToPage(freeChart, chart.getImageType(), chart.getImageWidth(), chart.getImageHeight(), request, response);
+		}
+	}
 	
 	static{
 		//创建主题样式  

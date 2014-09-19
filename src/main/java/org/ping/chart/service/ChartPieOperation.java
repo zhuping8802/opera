@@ -15,23 +15,10 @@ import org.jfree.util.Rotation;
 import org.ping.chart.bean.Chart;
 import org.ping.chart.bean.ChartPie;
 import org.ping.chart.util.ChartUtil;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class ChartPieOperation extends ChartOperation {
-	private ChartPie pie;
-
-	public ChartPieOperation(ChartPie pie) {
-		super();
-		this.pie = pie;
-	}
-
-	public ChartPie getPie() {
-		return pie;
-	}
-
-	public void setPie(ChartPie pie) {
-		this.pie = pie;
-	}
 
 	@Override
 	public JFreeChart createChart(Chart chart) {
@@ -76,9 +63,5 @@ public class ChartPieOperation extends ChartOperation {
 		pieplot.setBackgroundPaint(Color.WHITE);
 		
 		return freeChart;
-	}
-
-	public ChartPieOperation() {
-		super();
 	}
 }

@@ -7,7 +7,9 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.ping.chart.bean.ChartBar;
 import org.ping.chart.bean.ChartPie;
-import org.ping.chart.util.ChartUtil;
+import org.ping.chart.service.ChartBarOperation;
+import org.ping.chart.service.ChartPieOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,6 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/chart")
 public class ChartDemo {
+	
+	@Autowired
+	private ChartBarOperation chartBarOperation;
+	
+	@Autowired
+	private ChartPieOperation chartPieOperation;
 	
 	/**
 	 * 导出柱状图
@@ -39,7 +47,7 @@ public class ChartDemo {
 		ChartBar bar = new ChartBar(dataset);
 		bar.setMainTitle("所有项目的　统计");
 		bar.setBarChart3D(true);
-		ChartUtil.exportChart(response, bar);
+		chartBarOperation.exportChart(response, bar);
 	}
 	
 	/**
@@ -58,6 +66,6 @@ public class ChartDemo {
 		dataset.setValue("其他", 66);
 		ChartPie pie = new ChartPie(dataset);
 		pie.setBarChart3D(true);
-		ChartUtil.exportChart(response, pie);
+		chartPieOperation.exportChart(response, pie);
 	}
 }
