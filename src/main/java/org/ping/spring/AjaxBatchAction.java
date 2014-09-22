@@ -63,6 +63,7 @@ public class AjaxBatchAction {
 				AjaxBatch ajaxBatch = new AjaxBatch();
 				ajaxBatch.setReqUrl(jsonObject.getString("reqUrl"));
 				ajaxBatch.setCallback(jsonObject.getString("callback"));
+				ajaxBatch.setCallback(jsonObject.getString("reqType"));
 				
 				JSONObject paramsObject = jsonObject.getJSONObject("params");
 				if(paramsObject != null){

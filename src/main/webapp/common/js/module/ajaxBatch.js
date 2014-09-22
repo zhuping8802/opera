@@ -11,7 +11,18 @@
 		 */
 		ajaxBatch : function(o){
 			if(o && jQuery.isArray(o)){
+				// 修正数据
+				for(i in o){
+					var temp = o[i];
+					temp.reqUrl = temp.reqUrl ? temp.reqUrl : "";
+					temp.callback = temp.callback ? temp.callback : "";
+					temp.params = temp.params ? temp.params : {};
+					temp.reqType = temp.reqType ? temp.reqType : "get";
+					o[i] = temp;
+				}
+				// 组装参数
 				var params = {ajaxBatches: JSON.stringify(o)};
+				// 请求数据
 				jQuery.ajax({
 					url: ctx + "/ajaxBatch/doBatch.htm",
 					type: "POST",

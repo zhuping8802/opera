@@ -11,7 +11,7 @@
 	<script type="text/javascript">
 		$(function(){
 			$.ajaxBatch([{
-				reqUrl: ctx + "modelAction/queryModel.rdm",
+				reqUrl: "http://192.168.50.185:8081/rdm/modelAction/queryModel.rdm",
 				callback: "queryModelCallback"
 			}])
 		});
