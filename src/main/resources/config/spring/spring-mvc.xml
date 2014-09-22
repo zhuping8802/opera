@@ -12,7 +12,6 @@
 	<!-- 建立dispatcher实现注解支持 -->
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
-	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/> -->
 
 	<!-- ②：启动Spring MVC的注解功能，完成请求和注解POJO的映射， 完成json自动转换 -->
 	<bean id="mappingJacksonHttpMessageConverter"
@@ -29,9 +28,11 @@
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/view/pages/" />
+		<property name="prefix" value="/view/pages/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate"></bean>
 
 	<bean
 		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />

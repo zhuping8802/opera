@@ -4,20 +4,22 @@
 
 <web-app>
 	<display-name>Archetype Created Web Application</display-name>
-
+	
+	<!-- spring mvc 容器相关 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath*:config/spring/applicationContext.xml
 		</param-value>
 	</context-param>
-
+	
 	<listener>
 		<listener-class>
 			org.springframework.web.context.ContextLoaderListener
 		</listener-class>
 	</listener>
-
+	
+	<!-- 强制请求编码 -->
 	<filter>
 		<filter-name>EncodingFilter</filter-name>
 		<filter-class>
@@ -37,7 +39,31 @@
 		<filter-name>EncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- 装饰器使用 -->
+	<filter>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>
+			com.opensymphony.module.sitemesh.filter.PageFilter
+		</filter-class>
+	</filter>
 
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>*.html</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>*.htm</url-pattern>
+	</filter-mapping>
+
+	<!-- jfreechart使用 -->
 	<servlet>
 		<servlet-name>DisplayChart</servlet-name>
 		<servlet-class>
@@ -49,6 +75,7 @@
 		<url-pattern>/DisplayChart</url-pattern>
 	</servlet-mapping>
 	
+	<!-- spring mvc 使用 -->
 	<servlet>
 		<servlet-name>dispatchServlet</servlet-name>
 		<servlet-class>org.ping.spring.OperaDispatchServlet</servlet-class>

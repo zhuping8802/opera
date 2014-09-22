@@ -1,8 +1,5 @@
 package org.ping.spring;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
@@ -12,11 +9,9 @@ import org.springframework.web.servlet.DispatcherServlet;
  */
 public class OperaDispatchServlet extends DispatcherServlet{
 
-	@Override
-	protected void doService(HttpServletRequest arg0, HttpServletResponse arg1)
-			throws Exception {
-		// TODO Auto-generated method stub
-		super.doService(arg0, arg1);
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7042323176197091809L;
 
 }
