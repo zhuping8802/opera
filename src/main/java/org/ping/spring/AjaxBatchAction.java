@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 @Controller
@@ -98,13 +99,17 @@ class AjaxBatchThread extends Thread{
 
 	@Override
 	public void run() {
-		String reqUrl = ajaxBatch.getReqUrl();
-		if(REQUEST_TYPE_GET.equalsIgnoreCase(ajaxBatch.getReqType())){
-			String result = restTemplate.getForObject(reqUrl, String.class, ajaxBatch.getParams());
-			ajaxBatch.setResult(result);
-		}else if(REQUEST_TYPE_POST.equalsIgnoreCase(ajaxBatch.getReqType())){
-			String result = restTemplate.postForObject(reqUrl, null, String.class, ajaxBatch.getParams());
-			ajaxBatch.setResult(result);
+		try {
+			String reqUrl = ajaxBatch.getReqUrl();
+			if(REQUEST_TYPE_GET.equalsIgnoreCase(ajaxBatch.getReqType())){
+				String result = restTemplate.getForObject(reqUrl, String.class, ajaxBatch.getParams());
+				ajaxBatch.setResult(result);
+			}else if(REQUEST_TYPE_POST.equalsIgnoreCase(ajaxBatch.getReqType())){
+				String result = restTemplate.postForObject(reqUrl, null, String.class, ajaxBatch.getParams());
+				ajaxBatch.setResult(result);
+			}
+		} catch (RestClientException e) {
+			ajaxBatch.setResult(null);
 		}
 		latch.countDown();
 	}

@@ -22,11 +22,9 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver;
 
 /**
- * 
  * 解析请求参数json字符串 
- * 
- * @author Zhang Kaitao
- * @since 3.1
+ * @author ping.zhu
+ *
  */
 public class RequestJsonParamMethodArgumentResolver extends AbstractNamedValueMethodArgumentResolver implements WebArgumentResolver {
 
@@ -37,7 +35,6 @@ public class RequestJsonParamMethodArgumentResolver extends AbstractNamedValueMe
 	}
 	
 	public boolean supportsParameter(MethodParameter parameter) {
-
 	    if (parameter.hasParameterAnnotation(RequestJsonParam.class)) {
 		    return true;
 		}
@@ -48,7 +45,6 @@ public class RequestJsonParamMethodArgumentResolver extends AbstractNamedValueMe
 	protected NamedValueInfo createNamedValueInfo(MethodParameter parameter) {
 	    RequestJsonParam annotation = parameter.getParameterAnnotation(RequestJsonParam.class);
 		return new RequestJsonParamNamedValueInfo(annotation); 
-				
 	}
 
 	@Override
@@ -58,7 +54,6 @@ public class RequestJsonParamMethodArgumentResolver extends AbstractNamedValueMe
 		Class<?> paramType = parameter.getParameterType();
         if (paramValues == null) {
             return null;
-            
         } 
         
         try {
@@ -80,12 +75,9 @@ public class RequestJsonParamMethodArgumentResolver extends AbstractNamedValueMe
                 }
                 
                 JavaType javaType = getJavaType(paramType);
-
-
                 if(Collection.class.isAssignableFrom(paramType)) {
                     javaType = javaType.narrowContentsBy((Class<?>)((ParameterizedType)type).getActualTypeArguments()[0]);                        
                 }
-
                 return mapper.readValue(paramValues[0], javaType);
             }
             
@@ -107,8 +99,6 @@ public class RequestJsonParamMethodArgumentResolver extends AbstractNamedValueMe
 	    throw new ServletRequestBindingException(
                 "Missing request json parameter '" + paramName + "' for method parameter type [" + paramType + "]");
 	}
-
-	
 	
 	private class RequestJsonParamNamedValueInfo extends NamedValueInfo {
 
