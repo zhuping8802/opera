@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.ping.util.ThreadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +22,6 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/ajaxBatch")
 public class AjaxBatchAction {
 	
-	// get请求
-	private static final String REQUEST_TYPE_GET = "get";
-	// post请求
-	private static final String REQUEST_TYPE_POST = "post";
-	
 	@Autowired
 	private RestTemplate restTemplate;
 	
@@ -34,18 +31,14 @@ public class AjaxBatchAction {
 	 */
 	@RequestMapping("doBatch")
 	@ResponseBody
-	public List<AjaxBatch> doBatch(@RequestParam String ajaxBatches) throws JSONException{
+	public List<AjaxBatch> doBatch(@RequestParam String ajaxBatches) throws Exception{
 		List<AjaxBatch> batches = this.getAjaxBatchList(ajaxBatches);
+		CountDownLatch latch = new CountDownLatch(batches.size());
 		for(AjaxBatch batch: batches){
-			String reqUrl = batch.getReqUrl();
-			if(REQUEST_TYPE_GET.equalsIgnoreCase(batch.getReqType())){
-				String result = restTemplate.getForObject(reqUrl, String.class, batch.getParams());
-				batch.setResult(result);
-			}else if(REQUEST_TYPE_POST.equalsIgnoreCase(batch.getReqType())){
-				String result = restTemplate.postForObject(reqUrl, null, String.class, batch.getParams());
-				batch.setResult(result);
-			}
+			AjaxBatchThread thread = new AjaxBatchThread(batch, latch, restTemplate);
+			ThreadUtil.putThreadPool(thread);
 		}
+		latch.await();
 		return batches;
 	}
 	
@@ -53,8 +46,9 @@ public class AjaxBatchAction {
 	 * 解析批量请求参数
 	 * @param ajaxBatches
 	 * @return
+	 * @throws JSONException 
 	 */
-	private List<AjaxBatch> getAjaxBatchList(String ajaxBatches){
+	private List<AjaxBatch> getAjaxBatchList(String ajaxBatches) throws JSONException{
 		List<AjaxBatch> batches = new ArrayList<AjaxBatch>();
 		JSONArray jsonArray = new JSONArray(ajaxBatches);
 		if(jsonArray != null){
@@ -63,7 +57,7 @@ public class AjaxBatchAction {
 				AjaxBatch ajaxBatch = new AjaxBatch();
 				ajaxBatch.setReqUrl(jsonObject.getString("reqUrl"));
 				ajaxBatch.setCallback(jsonObject.getString("callback"));
-				ajaxBatch.setCallback(jsonObject.getString("reqType"));
+				ajaxBatch.setReqType(jsonObject.getString("reqType"));
 				
 				JSONObject paramsObject = jsonObject.getJSONObject("params");
 				if(paramsObject != null){
@@ -80,5 +74,38 @@ public class AjaxBatchAction {
 			}
 		}
 		return batches;
+	}
+}
+
+class AjaxBatchThread extends Thread{
+	// get请求
+	private static final String REQUEST_TYPE_GET = "get";
+	// post请求
+	private static final String REQUEST_TYPE_POST = "post";
+	private RestTemplate restTemplate;
+	private AjaxBatch ajaxBatch;
+	private CountDownLatch latch;
+	
+	public AjaxBatchThread(){
+		
+	}
+	
+	public AjaxBatchThread(AjaxBatch ajaxBatch, CountDownLatch latch, RestTemplate restTemplate){
+		this.ajaxBatch = ajaxBatch;
+		this.latch = latch;
+		this.restTemplate = restTemplate;
+	}
+
+	@Override
+	public void run() {
+		String reqUrl = ajaxBatch.getReqUrl();
+		if(REQUEST_TYPE_GET.equalsIgnoreCase(ajaxBatch.getReqType())){
+			String result = restTemplate.getForObject(reqUrl, String.class, ajaxBatch.getParams());
+			ajaxBatch.setResult(result);
+		}else if(REQUEST_TYPE_POST.equalsIgnoreCase(ajaxBatch.getReqType())){
+			String result = restTemplate.postForObject(reqUrl, null, String.class, ajaxBatch.getParams());
+			ajaxBatch.setResult(result);
+		}
+		latch.countDown();
 	}
 }
