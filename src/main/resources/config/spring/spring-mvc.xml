@@ -39,8 +39,8 @@
 		<!-- 注入自定义的参数解析器 -->
 		<property name="customArgumentResolvers">
 			<list>
-				<!-- <bean
-					class=" org.ping.spring.mvc.method.annotation.FormModelMethodArgumentResolver" /> -->
+				<bean
+					class=" org.ping.spring.mvc.method.annotation.FormModelMethodArgumentResolver" />
 				<bean
 					class=" org.ping.spring.mvc.method.annotation.RequestJsonParamMethodArgumentResolver" />
 			</list>

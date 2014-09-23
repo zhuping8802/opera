@@ -1,6 +1,5 @@
 package org.ping.spring.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.ping.spring.mvc.bean.UserModel;
@@ -8,57 +7,59 @@ import org.ping.spring.mvc.bind.annotation.FormModel;
 import org.ping.spring.mvc.util.MapWapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/formmodel")  
 public class FormModelController {
 
-    //ok   http://localhost:9080/springmvc-chapter6/formmodel/user?user.username=zhang&user.password=123
-    @RequestMapping("/user/{user.realname}")  
-    public String user(@FormModel("user") UserModel user) {
-        System.out.println(user);
-        return "redirect:/success";        
+    //ok   http://localhost:8080/opera/formmodel/user.do?user.username=zhang&user.password=123
+    @RequestMapping("/user/{user.realname}")
+    @ResponseBody
+    public UserModel user(@FormModel("user") UserModel user) {
+        return user;
     }
     
-    //ok   http://localhost:9080/springmvc-chapter6/formmodel/array1?array[0]=zhang&array[1]=li
-    @RequestMapping("/array1")  
-    public String array1(@FormModel("array") String[] array) {
-        System.out.println(Arrays.toString(array));
-        return "redirect:/success";        
+    //ok   http://localhost:8080/opera/formmodel/array1.do?array[0]=zhang&array[1]=li
+    @RequestMapping("/array1")
+    @ResponseBody
+    public String[] array1(@FormModel("array") String[] array) {
+        return array;
     }
     
-    //ok   http://localhost:9080/springmvc-chapter6/formmodel/array2?array[0].username=zhang&array[0].password=123&array[1].username=li
-    @RequestMapping("/array2")  
-    public String array2(@FormModel("array") UserModel[] array) {
-        System.out.println(Arrays.toString(array));
-        return "redirect:/success";        
+    //ok   http://localhost:8080/opera/formmodel/array2.do?array[0].username=zhang&array[0].password=123&array[1].username=li
+    @RequestMapping("/array2")
+    @ResponseBody
+    public UserModel[] array2(@FormModel("array") UserModel[] array) {
+        return array;  
     }
     
     
-  //ok   http://localhost:9080/springmvc-chapter6/formmodel/list1?list[0]=123&list[1]=234
-    @RequestMapping("/list1")  
-    public String list1(@FormModel("list") List<Integer> list) {
-        System.out.println(list);
-        return "redirect:/success";        
+  //ok   http://localhost:8080/opera/formmodel/list1.do?list[0]=123&list[1]=234
+    @RequestMapping("/list1")
+    @ResponseBody
+    public List<Integer> list1(@FormModel("list") List<Integer> list) {
+        return list;
     }
     
-    //ok   http://localhost:9080/springmvc-chapter6/formmodel/list2?list[0].username=zhang&list[1].username=li
-    @RequestMapping("/list2")  
-    public String list2(@FormModel("list") List<UserModel> list) {
-        System.out.println(list);
-        return "redirect:/success";        
+    //ok   http://localhost:8080/opera/formmodel/list2.do?list[0].username=zhang&list[1].username=li
+    @RequestMapping("/list2")
+    @ResponseBody
+    public List<UserModel> list2(@FormModel("list") List<UserModel> list) {
+        return list;
     }
     
-    //ok   http://localhost:9080/springmvc-chapter6/formmodel/map1?map['0']=123&map["1"]=234
-    @RequestMapping("/map1")  
-    public String map1(@FormModel("map") MapWapper<String, Integer> map) {
-        System.out.println(map);
-        return "redirect:/success";        
+    //ok   http://localhost:8080/opera/formmodel/map1.do?map['0']=123&map["1"]=234
+    @RequestMapping("/map1")
+    @ResponseBody
+    public MapWapper<String, Integer> map1(@FormModel("map") MapWapper<String, Integer> map) {
+        return map;   
     }
-  //ok   http://localhost:9080/springmvc-chapter6/formmodel/map2?map['0'].password=123&map['0'].username=123&map["1"].username=234
-    @RequestMapping("/map2")  
-    public String map2(@FormModel("map") MapWapper<Integer, UserModel> map) {
-        System.out.println(map);
-        return "redirect:/success";        
+    
+  //ok   http://localhost:8080/opera/formmodel/map2.do?map['0'].password=123&map['0'].username=123&map["1"].username=234
+    @RequestMapping("/map2")
+    @ResponseBody
+    public MapWapper<Integer, UserModel> map2(@FormModel("map") MapWapper<Integer, UserModel> map) {
+        return map;
     }
 }
