@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/chart")
-public class ChartDemo {
+public class ChartDemoAction {
 	
 	@Autowired
 	private ChartBarOperation chartBarOperation;

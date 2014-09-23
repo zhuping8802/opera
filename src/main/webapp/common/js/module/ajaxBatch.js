@@ -24,7 +24,7 @@
 				var params = {ajaxBatches: JSON.stringify(o)};
 				// 请求数据
 				jQuery.ajax({
-					url: ctx + "/ajaxBatch/doBatch.htm",
+					url: ctx + "/ajaxBatch/doBatch.do",
 					type: "POST",
 					data: params,
 					async: true,

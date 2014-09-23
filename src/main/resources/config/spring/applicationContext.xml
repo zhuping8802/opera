@@ -29,9 +29,16 @@
 	<context:annotation-config />
 	
 	<!-- 注册对应包下的controller到上下文中 -->
-	<context:component-scan base-package="org.ping">
-		<context:include-filter type="regex" expression="org.ping.chart..*"/>
-		<context:include-filter type="regex" expression="org.ping.spring..*"/>
+	<context:component-scan base-package="org.ping" use-default-filters="false">
+		<context:include-filter type="regex" expression="org.ping..*Controller"/>
+		<context:include-filter type="regex" expression="org.ping..*Action"/>
+		<context:include-filter type="regex" expression="org.ping..*Service"/>
+		<context:include-filter type="regex" expression="org.ping..*ServiceImpl"/>
+		<context:include-filter type="regex" expression="org.ping..*Dao"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
 	<import resource="classpath:config/spring/spring-mvc.xml" />
