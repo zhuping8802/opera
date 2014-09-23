@@ -85,10 +85,21 @@
 				classpath*:config/spring/applicationContext.xml
 			</param-value>
 		</init-param>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>dispatchServlet</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
-
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/view/pages/errors/404.jsp</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>500</error-code>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/view/pages/errors/error.jsp</location>
+	</error-page>
 </web-app>

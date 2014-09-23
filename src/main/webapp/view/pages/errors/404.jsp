@@ -4,20 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>404</title>
 </head>
 <body>
-	Test ajaxBatch Page!
-	<script type="text/javascript">
-		$(function(){
-			$.ajaxBatch([{
-				reqUrl: "http://www.baidu.com",
-				callback: "queryModelCallback"
-			}])
-		});
-		function queryModelCallback(data){
-			alert(data);
-		}
-	</script>
+	404,找不到页面!!!
 </body>
 </html>
