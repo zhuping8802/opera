@@ -11,7 +11,7 @@
 	<script type="text/javascript">
 		$(function(){
 			$.ajaxBatch([{
-				reqUrl: "http://www.baidu.com",
+				reqUrl: "http://192.168.50.121/rdm/modelAction/queryModel.rdm",
 				callback: "queryModelCallback"
 			}])
 		});
