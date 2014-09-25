@@ -35,46 +35,10 @@
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
-	<logger name="org.springframework.core">
+	<logger name="org.springframework">
 		<level value="warn" />
 	</logger>
 	
-	<logger name="org.springframework.beans">
-		<level value="warn" />
-	</logger>
-	
-	<logger name="org.springframework.context">
-		<level value="warn" />
-	</logger>
-
-	<logger name="org.springframework.web">
-		<level value="warn" />
-	</logger>
-	
-	<logger name="org.springframework.transaction">
-		<level value="warn" />
-	</logger>
-	
-	<logger name="org.springframework.jdbc">
-		<level value="warn" />
-	</logger>
-	
-	<logger name="org.springframework.orm">
-		<level value="warn" />
-	</logger>
-	
-	<logger name="org.springframework.format">
-		<level value="debug" />
-	</logger>
-	
-	<logger name="org.springframework.integration">
-		<level value="warn" />
-	</logger>
-	
-	<logger name="org.springframework.security">
-		<level value="warn" />
-	</logger>
-
 	<!-- Root Logger -->
 	<root>
 		<priority value="info" />
