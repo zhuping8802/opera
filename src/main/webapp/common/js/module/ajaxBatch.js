@@ -36,7 +36,11 @@
 								var callback = obj.callback,
 									result = obj.result;
 								try{
-									eval(callback)(JSON.parse(result));
+									try{
+										result = JSON.parse(result);
+									}catch(e){
+									}
+									eval(callback)(result);
 								}catch(e){
 									
 								}

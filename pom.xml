@@ -15,8 +15,40 @@
 		<junit-version>4.10</junit-version>
 		<aspectj-version>1.7.4</aspectj-version>
 		<org.slf4j.version>1.6.1</org.slf4j.version>
+		<javassist.version>3.18.0-GA</javassist.version>
+		<tika.version>1.4</tika.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-app</artifactId>
+			<version>${tika.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>slf4j-log4j12</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-parent</artifactId>
+			<version>${tika.version}</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>${javassist.version}</version>
+		</dependency>
 
 		<!-- Test -->
 		<dependency>
@@ -25,7 +57,7 @@
 			<version>${junit-version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -219,6 +251,12 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>4.1.0.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.0</version>
+		</dependency>
+
 
 		<!-- @Inject -->
 		<dependency>

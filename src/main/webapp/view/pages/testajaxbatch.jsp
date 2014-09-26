@@ -11,11 +11,19 @@
 	<script type="text/javascript">
 		$(function(){
 			$.ajaxBatch([{
-				reqUrl: "http://192.168.50.121/rdm/modelAction/queryModel.rdm",
-				callback: "queryModelCallback"
+				reqUrl: "http://localhost:8080/opera/springjson/show.do?phone.phone=2222&phone.telPhone=3333&name=zh&eamil=d&mobiles[0].name=dddd&mobiles[1].name=apple&numbers[n1]=21&numbers[0]=44&array[4]=aaaa&mobiles[1].info.desc=appledesc",
+				callback: "showFn"
+			},{
+				reqUrl: "http://localhost:8080/opera",
+				callback: "operaFn"
 			}])
 		});
-		function queryModelCallback(data){
+		
+		function showFn(data){
+			alert(data);
+		}
+		
+		function operaFn(data){
 			alert(data);
 		}
 	</script>

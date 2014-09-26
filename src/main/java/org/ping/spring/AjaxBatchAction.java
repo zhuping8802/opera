@@ -110,7 +110,8 @@ class AjaxBatchThread extends Thread{
 			}
 		} catch (RestClientException e) {
 			ajaxBatch.setResult(null);
+		}finally{
+			latch.countDown();
 		}
-		latch.countDown();
 	}
 }

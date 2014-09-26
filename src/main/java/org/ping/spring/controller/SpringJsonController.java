@@ -21,8 +21,6 @@ public class SpringJsonController {
 	@RequestMapping("show")
 	@ResponseBody
 	public Person showPerson(@Valid Person person, BindingResult result){
-		System.out.println(result.getErrorCount());
-		System.out.println(person.getBirth());
 		return person;
 	}
 	

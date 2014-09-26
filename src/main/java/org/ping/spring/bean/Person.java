@@ -15,8 +15,6 @@ import org.springframework.format.annotation.NumberFormat.Style;
 import org.springframework.validation.BindingResult;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 //@JsonInclude(Include.NON_NULL)
 public class Person implements Serializable{
@@ -103,7 +101,7 @@ public class Person implements Serializable{
 		this.eamil = eamil;
 	}
 	
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone="GMT+8")
 	public Date getBirth() {
 		return birth;
 	}
