@@ -10,35 +10,35 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.ping.spring.json.FilterPropertyHandler;
-import org.ping.spring.json.impl.JavassistFilterPropertyHandler;
+import org.ping.spring.json.impl.ObjectFilterPropertyHandler;
+import org.springframework.web.bind.annotation.RequestBody;
 
-/**
- * json字段过滤拦截器
- * @author ping.zhu
- *
- */
 @Aspect
-public class IgnorePropertyAspect {
-	private static final Logger LOG = Logger.getLogger(IgnorePropertyAspect.class);
-
+public class ObjectJsonFilterAspect {
+	
+	private static final Logger LOG = Logger.getLogger(ObjectJsonFilterAspect.class);
+	
 	@Pointcut("execution(* org.ping..*.*(..))")
-	private void anyMethod() {
+	public void anyMethod(){
 		
 	}
-
+	
 	@Around("anyMethod()")
 	public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
 		Object returnVal = pjp.proceed();
 		try {
-			FilterPropertyHandler filterPropertyHandler = new JavassistFilterPropertyHandler(true);
 			Method method = ((MethodSignature) pjp.getSignature()).getMethod();
-			returnVal = filterPropertyHandler.filterProperties(method, returnVal);
+			RequestBody requestBody = method.getAnnotation(RequestBody.class);
+			if(requestBody != null){ // 必须有此注解
+				FilterPropertyHandler filterPropertyHandler = new ObjectFilterPropertyHandler();
+				returnVal = filterPropertyHandler.filterProperties(method, returnVal);
+			}
 		} catch (Exception e) {
 			LOG.error(this.getClass().getName() + ".doAround==============" + e.getMessage());
 		}
 		return returnVal;
 	}
-
+	
 	@AfterThrowing(pointcut = "anyMethod()", throwing = "e")
 	public void doAfterThrowing(Exception e) {
 		LOG.error(this.getClass().getName() + ".doAfterThrowing==============" + e.getMessage());

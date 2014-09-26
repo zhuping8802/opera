@@ -28,6 +28,7 @@ import javassist.bytecode.annotation.StringMemberValue;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.ping.spring.context.WebContext;
 import org.ping.spring.json.FilterPropertyHandler;
 import org.ping.spring.json.annotation.AllowProperty;
 import org.ping.spring.json.annotation.IgnoreProperties;
@@ -320,8 +321,8 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 		try {
 			HttpServletResponse response = WebContext.getInstance().getResponse();
 			writeJson(mapper, response, object);
-		} catch (WebContextAlreadyClearedException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
 		}
 
 		return null;// 如果处理完成， 则返回空
