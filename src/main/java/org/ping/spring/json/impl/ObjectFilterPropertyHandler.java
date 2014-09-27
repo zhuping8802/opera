@@ -3,19 +3,44 @@ package org.ping.spring.json.impl;
 import java.lang.reflect.Method;
 
 import org.ping.spring.context.WebContext;
-import org.ping.spring.json.FilterPropertyHandler;
 import org.ping.spring.json.annotation.ObjectJsonFilter;
 import org.ping.spring.json.annotation.ObjectJsonFilters;
+import org.ping.spring.json.service.FilterPropertyHandler;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ObjectFilterPropertyHandler implements FilterPropertyHandler {
+/**
+ * 简单对象字段属性过滤处理
+ * @author ping
+ *
+ */
+@Component("objectFilterPropertyHandler")
+public class ObjectFilterPropertyHandler implements FilterPropertyHandler{
 
 	@Override
-	public Object filterProperties(Method method, Object object) {
+	public void filterProperties(Method method, Class<?> targetClass, Object object){
+		// 类级别过滤
+		ObjectJsonFilter classObjectJsonFilter = targetClass.getAnnotation(ObjectJsonFilter.class);
+		ObjectJsonFilters classObjectJsonFilters = targetClass.getAnnotation(ObjectJsonFilters.class);
+		
+		// 方法级别过滤
 		ObjectJsonFilter objectJsonFilter = method.getAnnotation(ObjectJsonFilter.class);
 		ObjectJsonFilters objectJsonFilters = method.getAnnotation(ObjectJsonFilters.class);
+		
 		ObjectMapper objectMapper = new ObjectMapper();
+		
+		if(classObjectJsonFilter != null){
+			this.configObjectMapper(classObjectJsonFilter, method, objectMapper);
+		}
+		
+		if(classObjectJsonFilters != null){
+			ObjectJsonFilter[] filters = classObjectJsonFilters.value();
+			for(ObjectJsonFilter filter : filters){
+				this.configObjectMapper(filter, method, objectMapper);
+			}
+		}
+		
 		if(objectJsonFilter != null){
 			this.configObjectMapper(objectJsonFilter, method, objectMapper);
 		}
@@ -31,7 +56,6 @@ public class ObjectFilterPropertyHandler implements FilterPropertyHandler {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		return null;
 	}
 	
 	/**

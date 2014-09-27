@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  *
  */
 @Documented
-@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
+@Target({ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AllowProperty {
 	

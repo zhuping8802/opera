@@ -1,4 +1,4 @@
-package org.ping.spring;
+package org.ping.spring.common;
 
 import org.springframework.web.servlet.DispatcherServlet;
 

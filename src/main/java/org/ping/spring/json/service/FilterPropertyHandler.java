@@ -1,4 +1,4 @@
-package org.ping.spring.json;
+package org.ping.spring.json.service;
 
 import java.lang.reflect.Method;
 
@@ -16,5 +16,5 @@ public interface FilterPropertyHandler {
 	 * @param object
 	 * @return
 	 */
-	public Object filterProperties(Method method, Object object);
+	public void filterProperties(Method method, Class<?> targetClass, Object object);
 }

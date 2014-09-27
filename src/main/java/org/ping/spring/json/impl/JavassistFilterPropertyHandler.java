@@ -29,15 +29,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.ping.spring.context.WebContext;
-import org.ping.spring.json.FilterPropertyHandler;
 import org.ping.spring.json.annotation.AllowProperty;
 import org.ping.spring.json.annotation.IgnoreProperties;
 import org.ping.spring.json.annotation.IgnoreProperty;
+import org.ping.spring.json.service.FilterPropertyHandler;
 import org.ping.util.EntityHelper;
 import org.ping.util.StringHelper;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageNotWritableException;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonEncoding;
@@ -46,6 +46,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+@Component("javassistFilterPropertyHandler")
 public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 
 	public static final Logger LOGGER = Logger.getLogger(JavassistFilterPropertyHandler.class);
@@ -64,10 +65,6 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 			"handler" };
 
 	/**
-	 * 如果是标注的SpringMVC中的Controller方法，则应判断是否注解了@ResponseBody
-	 */
-	private boolean isResponseBodyAnnotation;
-	/**
 	 * 创建代理接口的唯一值索引
 	 */
 	private static int proxyIndex;
@@ -79,14 +76,6 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 		JavassistFilterPropertyHandler.globalIgnoreProperties = globalIgnoreProperties;
 	}
 
-	/**
-	 * @param isResponseBodyAnnotation
-	 *            如果是标注的SpringMVC中的Controller方法，则应判断是否注解了@ResponseBody
-	 */
-	public JavassistFilterPropertyHandler(boolean isResponseBodyAnnotation) {
-		this.isResponseBodyAnnotation = isResponseBodyAnnotation;
-	}
-	
 	private Collection<String> checkAndPutToCollection(Collection<String> collection, String[] names) {
 		if (collection == null) {
 			collection = new HashSet<String>();
@@ -183,9 +172,6 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 	 * @return Map<Class<?>, Collection<Class<?>>> pojo与其属性的映射表
 	 */
 	protected Map<Class<?>, Class<?>> getProxyMixInAnnotation(Method method) {
-		if (isResponseBodyAnnotation && !method.isAnnotationPresent(ResponseBody.class)) {
-			return null;
-		}
 		Map<Class<?>, Class<?>> map = proxydMethodMap.get(method);// 从缓存中查找是否存在
 
 		if (map != null && map.entrySet().size() > 0) {// 如果已经读取该方法的注解信息，则从缓存中读取
@@ -302,30 +288,15 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 	}
 
 	@Override
-	public Object filterProperties(Method method, Object object) {
-
+	public void filterProperties(Method method, Class<?> targetClass, Object object) {
 		Map<Class<?>, Class<?>> map = getProxyMixInAnnotation(method);
-		if (map == null || map.entrySet().size() == 0) {// 如果该方法上没有注解，则返回原始对象
-			return object;
-		}
-		
-		Set<Entry<Class<?>, Class<?>>> entries = map.entrySet();
-		for (Iterator<Entry<Class<?>, Class<?>>> iterator = entries.iterator(); iterator.hasNext();) {
-			Entry<Class<?>, Class<?>> entry = (Entry<Class<?>, Class<?>>) iterator.next();
-			Class<?> clazz = entry.getValue();
-		}
-
-
 		ObjectMapper mapper = createObjectMapper(map);
-
 		try {
 			HttpServletResponse response = WebContext.getInstance().getResponse();
 			writeJson(mapper, response, object);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		}
-
-		return null;// 如果处理完成， 则返回空
 	}
 
 	/**
@@ -350,6 +321,7 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 	 * @param response
 	 * @param object
 	 */
+	@SuppressWarnings("deprecation")
 	private void writeJson(ObjectMapper objectMapper, HttpServletResponse response, Object object) {
 		response.setContentType("application/json");
 
@@ -362,8 +334,6 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 			e1.printStackTrace();
 		}
 
-		// A workaround for JsonGenerators not applying serialization features
-		// https://github.com/FasterXML/jackson-databind/issues/12
 		if (objectMapper.isEnabled(SerializationFeature.INDENT_OUTPUT)) {
 			jsonGenerator.useDefaultPrettyPrinter();
 		}

@@ -1,4 +1,4 @@
-package org.ping.spring;
+package org.ping.spring.batch;
 
 import java.util.HashMap;
 import java.util.Map;
