@@ -19,8 +19,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ObjectFilterPropertyHandler implements FilterPropertyHandler{
 
 	@Override
-	public void filterProperties(Method method, Class<?> targetClass, Object object){
+	public void filterProperties(Method method, Object object){
 		// 类级别过滤
+		Class<?> targetClass = method.getDeclaringClass();
 		ObjectJsonFilter classObjectJsonFilter = targetClass.getAnnotation(ObjectJsonFilter.class);
 		ObjectJsonFilters classObjectJsonFilters = targetClass.getAnnotation(ObjectJsonFilters.class);
 		
@@ -54,7 +55,7 @@ public class ObjectFilterPropertyHandler implements FilterPropertyHandler{
 		try {
 			objectMapper.writeValue(WebContext.getInstance().getResponse().getOutputStream(), object);
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("Could not write JSON: " + e.getMessage(), e);
 		}
 	}
 	

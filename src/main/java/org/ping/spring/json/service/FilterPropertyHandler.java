@@ -16,5 +16,5 @@ public interface FilterPropertyHandler {
 	 * @param object
 	 * @return
 	 */
-	public void filterProperties(Method method, Class<?> targetClass, Object object);
+	public void filterProperties(Method method, Object object);
 }

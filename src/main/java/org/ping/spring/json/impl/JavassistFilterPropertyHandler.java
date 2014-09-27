@@ -36,20 +36,18 @@ import org.ping.spring.json.service.FilterPropertyHandler;
 import org.ping.util.EntityHelper;
 import org.ping.util.StringHelper;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 @Component("javassistFilterPropertyHandler")
 public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 
-	public static final Logger LOGGER = Logger.getLogger(JavassistFilterPropertyHandler.class);
+	public static final Logger LOG = Logger.getLogger(JavassistFilterPropertyHandler.class);
 
 	/**
 	 * 注解的方法对应生成的代理类映射表
@@ -61,8 +59,7 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 	 */
 	private static Map<Integer, Class<?>> proxyMixInAnnotationMap = new HashMap<Integer, Class<?>>();
 
-	private static String[] globalIgnoreProperties = new String[] { "hibernateLazyInitializer",
-			"handler" };
+	private static String[] globalIgnoreProperties = new String[] { "hibernateLazyInitializer", "handler" };
 
 	/**
 	 * 创建代理接口的唯一值索引
@@ -70,6 +67,7 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 	private static int proxyIndex;
 
 	public JavassistFilterPropertyHandler() {
+		
 	}
 
 	public JavassistFilterPropertyHandler(String[] globalIgnoreProperties) {
@@ -105,21 +103,17 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 	private void processIgnorePropertiesAnnotation(IgnoreProperties properties,
 			Map<Class<?>, Collection<String>> pojoAndNamesMap) {
 		IgnoreProperty[] values = properties.value();
-
 		AllowProperty[] allowProperties = properties.allow();
-
 		if (allowProperties != null) {
 			for (AllowProperty allowProperty : allowProperties) {
 				processAllowPropertyAnnotation(allowProperty, pojoAndNamesMap);
 			}
 		}
-
 		if (values != null) {
 			for (IgnoreProperty property : values) {
 				processIgnorePropertyAnnotation(property, pojoAndNamesMap);
 			}
 		}
-
 	}
 
 	/**
@@ -131,9 +125,6 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 			Map<Class<?>, Collection<String>> pojoAndNamesMap) {
 		String[] names = property.name();
 		Class<?> pojoClass = property.pojo();
-		// Class<?> proxyAnnotationInterface = createMixInAnnotation(names);//
-		// 根据注解创建代理接口
-
 		Collection<String> nameCollection = pojoAndNamesMap.get(pojoClass);
 		nameCollection = checkAndPutToCollection(nameCollection, names);
 		pojoAndNamesMap.put(pojoClass, nameCollection);
@@ -288,14 +279,14 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 	}
 
 	@Override
-	public void filterProperties(Method method, Class<?> targetClass, Object object) {
+	public void filterProperties(Method method, Object object) {
 		Map<Class<?>, Class<?>> map = getProxyMixInAnnotation(method);
 		ObjectMapper mapper = createObjectMapper(map);
 		try {
 			HttpServletResponse response = WebContext.getInstance().getResponse();
 			writeJson(mapper, response, object);
 		} catch (Exception e) {
-			LOGGER.error(e.getMessage());
+			LOG.error(e.getMessage());
 		}
 	}
 
@@ -324,14 +315,13 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 	@SuppressWarnings("deprecation")
 	private void writeJson(ObjectMapper objectMapper, HttpServletResponse response, Object object) {
 		response.setContentType("application/json");
-
 		JsonEncoding encoding = getJsonEncoding(response.getCharacterEncoding());
 		JsonGenerator jsonGenerator = null;
 		try {
 			jsonGenerator = objectMapper.getJsonFactory().createJsonGenerator(
 					response.getOutputStream(), encoding);
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 		if (objectMapper.isEnabled(SerializationFeature.INDENT_OUTPUT)) {
@@ -340,16 +330,9 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 
 		try {
 			objectMapper.writeValue(jsonGenerator, object);
-		} catch (JsonProcessingException ex) {
-			LOGGER.error(ex);
-
-			throw new HttpMessageNotWritableException("Could not write JSON: " + ex.getMessage(),
-					ex);
-		} catch (IOException e) {
-			LOGGER.error(e);
-			// e.printStackTrace();
+		} catch (Exception e) {
+			throw new RuntimeException("Could not write JSON: " + e.getMessage(), e);
 		}
-
 	}
 	
 	private JsonEncoding getJsonEncoding(String characterEncoding) {

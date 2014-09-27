@@ -6,6 +6,7 @@ import org.ping.spring.bean.Mobile;
 import org.ping.spring.bean.MobileFilter;
 import org.ping.spring.bean.Person;
 import org.ping.spring.bean.PersonFilter;
+import org.ping.spring.json.annotation.AllowProperty;
 import org.ping.spring.json.annotation.IgnoreProperty;
 import org.ping.spring.json.annotation.ObjectJsonFilter;
 import org.ping.spring.json.annotation.ObjectJsonFilters;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/springjson")
 @ObjectJsonFilters(value={@ObjectJsonFilter(target=Mobile.class, mixin = MobileFilter.class)})
+//@AllowProperty(pojo=Person.class, name={"name"})
 public class SpringJsonController {
 	
 	/**
@@ -33,7 +35,7 @@ public class SpringJsonController {
 //	http://localhost:8080/opera/springjson/show.do?phone.phone=2222&phone.telPhone=3333&name=zh&eamil=d&mobiles[0].name=dddd&mobiles[1].name=apple&numbers[n1]=21&numbers[0]=44&array[4]=aaaa&mobiles[1].info.desc=appledesc
 	@RequestMapping("show")
 	@ResponseBody
-	@ObjectJsonFilter(target=Person.class, mixin = PersonFilter.class)
+//	@ObjectJsonFilter(target=Person.class, mixin = PersonFilter.class)
 //	@ObjectJsonFilter(target=Mobile.class, mixin = MobileFilter.class)
 	public Person showPerson(@Valid Person person, BindingResult result){
 		return person;
@@ -43,6 +45,7 @@ public class SpringJsonController {
 	@RequestMapping("show2")
 	@ResponseBody
 	@IgnoreProperty(pojo=Person.class, name={"money", "eamil"})
+//	@AllowProperty(pojo=Person.class, name={"money"})
 	public Person showPerson2(@Valid Person person, BindingResult result){
 		return person;
 	}

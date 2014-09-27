@@ -9,11 +9,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.ping.spring.json.annotation.AllowProperty;
-import org.ping.spring.json.annotation.IgnoreProperties;
-import org.ping.spring.json.annotation.IgnoreProperty;
-import org.ping.spring.json.annotation.ObjectJsonFilter;
-import org.ping.spring.json.annotation.ObjectJsonFilters;
 import org.ping.spring.json.service.FilterPropertyHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class IgnorePropertyAspect {
 
 	private static final Logger LOG = Logger.getLogger(IgnorePropertyAspect.class);
+	
+	private boolean isDynamicProperties = true;
 
 	@Autowired
 	@Qualifier("javassistFilterPropertyHandler")
@@ -52,19 +49,14 @@ public class IgnorePropertyAspect {
 			Method method = ((MethodSignature) pjp.getSignature()).getMethod();
 			ResponseBody responseBody = method.getAnnotation(ResponseBody.class);
 			if (responseBody != null) { // 必须有此注解
-				Class<?> targetClass = pjp.getTarget().getClass();
-				if (method.getAnnotation(ObjectJsonFilter.class) != null
-						|| method.getAnnotation(ObjectJsonFilters.class) != null) {
-					// 普通动态属性字段过滤
-					objectFilterPropertyHandler.filterProperties(method, targetClass, returnVal);
-					return null;
-				} else if (method.getAnnotation(IgnoreProperty.class) != null
-						|| method.getAnnotation(IgnoreProperties.class) != null
-						|| method.getAnnotation(AllowProperty.class) != null) {
+				if (isDynamicProperties) {
 					// 高级动态属性字段过滤
-					javassistFilterPropertyHandler.filterProperties(method, targetClass, returnVal);
-					return null;
+					javassistFilterPropertyHandler.filterProperties(method, returnVal);
+				} else{
+					// 普通动态属性字段过滤
+					objectFilterPropertyHandler.filterProperties(method, returnVal);
 				}
+				return null;
 			}
 		} catch (Exception e) {
 			LOG.error(this.getClass().getName() + ".doAround==============" + e.getMessage());
