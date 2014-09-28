@@ -32,7 +32,8 @@ public class JavassistDemo {
 		Map<String, Object> map = new HashMap<String, Object>();
 		ClassPool classPool = ClassPool.getDefault();
 		try {
-			CtClass ctClass = classPool.getCtClass("javassistDemo");
+			// 加载失败，原因，是当前类已被spring加载进jvm,main()方式可以正常加载
+			CtClass ctClass = classPool.getCtClass("org.ping.dynamic.JavassistDemo");
 			if(ctClass != null){
 				map.put("包名", ctClass.getPackageName());
 				map.put("类名", ctClass.getName() + ";" + ctClass.getSimpleName());
@@ -42,5 +43,19 @@ public class JavassistDemo {
 			LOG.error(e);
 		}
 		return map;
+	}
+	
+	public static void main(String[] args) {
+		ClassPool classPool = ClassPool.getDefault();
+		try {
+			CtClass ctClass = classPool.getCtClass("org.ping.dynamic.JavassistDemo");
+			if(ctClass != null){
+				System.out.println(ctClass.getPackageName());
+				System.out.println(ctClass.getName() + ";" + ctClass.getSimpleName());
+				System.out.println(ctClass.getDeclaredMethods());
+			}
+		} catch (NotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 }
