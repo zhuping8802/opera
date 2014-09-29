@@ -1,4 +1,4 @@
-﻿package org.ping.study.util;
+package org.ping.study.util;
 
 import java.lang.reflect.Field;
 
