@@ -6,6 +6,7 @@
 	<artifactId>ping.opera</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ping.opera</name>
+	<url>http://maven.apache.org</url>
 	<packaging>pom</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -276,5 +277,6 @@
 		<module>ping.spring_boot</module>
 		<module>ping.study</module>
 		<module>ping.core</module>
+		<module>ping.main</module>
 	</modules>
 </project>
