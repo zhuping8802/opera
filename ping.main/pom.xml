@@ -9,9 +9,8 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	
-	<groupId>org.ping</groupId>
 	<artifactId>ping.main</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>ping.main</name>
 	<url>http://maven.apache.org</url>
 	<packaging>war</packaging>

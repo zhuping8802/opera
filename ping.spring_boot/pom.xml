@@ -9,9 +9,8 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	
-	<groupId>org.ping</groupId>
 	<artifactId>ping.spring_boot</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>ping.spring_boot</name>
 	<url>http://maven.apache.org</url>
 	<properties>
