@@ -1,4 +1,4 @@
-package org.ping.study.spring.json.annotation;
+package org.ping.core.json.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -7,24 +7,23 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 只允许pojo内的属性序列化成json，对于同一个pojo该注解是与IgnoreProperty是冲突的
+ * 对象字段过滤器
  * @author ping.zhu
  *
  */
 @Documented
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface AllowProperty {
+public @interface ObjectJsonFilter {
+	/**
+	 * 目标对象
+	 * @return
+	 */
+	Class<?> target() default Object.class;
 	
 	/**
-	 * 目标POJO
+	 * 最小字段属性集对象
 	 * @return
 	 */
-	Class<?> pojo();
-
-	/**
-	 * 允许序列化的属性名
-	 * @return
-	 */
-	String[] name();
+	Class<?> mixin() default Object.class;
 }

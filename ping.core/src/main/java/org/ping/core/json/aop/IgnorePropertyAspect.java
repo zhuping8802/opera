@@ -1,4 +1,4 @@
-package org.ping.study.spring.json.aop;
+package org.ping.core.json.aop;
 
 import java.lang.reflect.Method;
 
@@ -9,7 +9,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.ping.study.spring.json.service.FilterPropertyHandler;
+import org.ping.core.json.service.FilterPropertyHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;

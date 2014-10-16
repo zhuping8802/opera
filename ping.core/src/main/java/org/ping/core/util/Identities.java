@@ -1,20 +1,24 @@
-package org.ping.study.util;
+package org.ping.core.util;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Date;
 
 /**
- * Id自动增加生成器
- * @author ping.zhu
- *
+ * 
+ * <p>TypeName: Identities</p>
+ * <p>Description: (自动增长)</p>
+ * <p>date : 2014年10月16日 下午4:17:06 </p>
+ * @author ping
+ * @version 1.0
  */
 public final class Identities {
 	private static Object lock = new Object();
 	private static Long seq = 1l;
 	private static NumberFormat nf = new DecimalFormat("-000000000000000000");
+	
 	/**
-	 * 最大的Sel
+	 * 最大值
 	 */
 	private static final Long MAXSEQ = 999999999999999999l;
 	
@@ -22,6 +26,14 @@ public final class Identities {
 		
 	}
 	
+	/**
+	 * 
+	 * TypeName: Identities
+	 * MethodName: getId (获取自增长的ID) 
+	 * @author ping
+	 * @date 2014年10月16日 下午4:30:23
+	 * @return
+	 */
 	public static String getId(){
 		StringBuffer id = new StringBuffer();
 		synchronized (lock) {

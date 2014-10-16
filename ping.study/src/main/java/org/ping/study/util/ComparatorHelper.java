@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import org.ping.core.util.ReflectUtil;
+
 /**
  * 比较助手
  * @author ping.zhu

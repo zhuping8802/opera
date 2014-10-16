@@ -8,21 +8,26 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * 并发测试工具类
- * @author ping.zhu
- *
+ * 
+ * <p>TypeName: ConcurrentTestUtil</p>
+ * <p>Description: (并发测试模拟工具)</p>
+ * <p>date : 2014年10月16日 下午3:53:07 </p>
+ * @author ping
+ * @version 1.0
  */
 public class ConcurrentTestUtil {
 	
 	static ConcurrentLinkedQueue<Long> times = new ConcurrentLinkedQueue<Long>();
 
 	/**
-	 * @param worker
-	 *            线程执行者
-	 * @param threads
-	 *            并发数
-	 * @param params
-	 *            线程执行需要的参数(模拟不同线程根据不同的参数值执行并发操作)
+	 * 
+	 * TypeName: ConcurrentTestUtil
+	 * MethodName: test (测试方法) 
+	 * @author ping
+	 * @date 2014年10月16日 下午3:59:15
+	 * @param worker 工作线程
+	 * @param threads 并发数
+	 * @param params 线程执行需要的参数(模拟不同线程根据不同的参数值执行并发操作)
 	 */
 	public static void test(LatchWorker worker, int threads, Object[] params) {
 		if (threads <= 0) {
@@ -52,14 +57,15 @@ public class ConcurrentTestUtil {
 	}
 	
 	/**
-	 * @param worker
-	 *            线程执行者
-	 * @param threads
-	 *            并发数
-	 * @param times
-	 *            重复执行次数
-	 * @param params
-	 *            线程执行需要的参数(模拟不同线程根据不同的参数值执行并发操作)
+	 * 
+	 * TypeName: ConcurrentTestUtil
+	 * MethodName: test (测试方法) 
+	 * @author ping
+	 * @date 2014年10月16日 下午4:07:03
+	 * @param worker 工作线程
+	 * @param threads 线程数
+	 * @param times 测试执行次数
+	 * @param params 线程执行需要的参数(模拟不同线程根据不同的参数值执行并发操作)
 	 */
 	public static void test(LatchWorker worker, int threads, int times, Object[] params) {
 		if (threads <= 0) {
@@ -93,8 +99,12 @@ public class ConcurrentTestUtil {
 	}
 	
 	/**
-	 * 打印结果
-	 * @param threads
+	 * 
+	 * TypeName: ConcurrentTestUtil
+	 * MethodName: printTotalResult (打印) 
+	 * @author ping
+	 * @date 2014年10月16日 下午4:09:48
+	 * @param threads 线程数
 	 */
 	private static void printTotalResult(int threads) {
 		int timesSize = times.size();
@@ -121,6 +131,16 @@ public class ConcurrentTestUtil {
 		printFirstPercentAvgTime(timesList, timesSize, 100);
 	}
 	
+	/**
+	 * 
+	 * TypeName: ConcurrentTestUtil
+	 * MethodName: printFirstPercentAvgTime (计算线程执行平均时间) 
+	 * @author ping
+	 * @date 2014年10月16日 下午4:11:05
+	 * @param timesList
+	 * @param threads
+	 * @param percent
+	 */
 	private static void printFirstPercentAvgTime(List<Long> timesList, int threads, int percent){
 		int size = (threads * percent) / 100;
 		if (size == 0) {

@@ -8,7 +8,7 @@
 		<artifactId>ping.opera</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>ping.study</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>ping.study</name>
@@ -16,5 +16,12 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-  <packaging>war</packaging>
+	<packaging>war</packaging>
+	<dependencies>
+		<dependency>
+			<groupId>org.ping</groupId>
+			<artifactId>ping.core</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

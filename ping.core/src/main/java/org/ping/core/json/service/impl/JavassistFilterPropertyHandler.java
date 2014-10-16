@@ -1,4 +1,4 @@
-package org.ping.study.spring.json.impl;
+package org.ping.core.json.service.impl;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -28,13 +28,13 @@ import javassist.bytecode.annotation.StringMemberValue;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.ping.study.spring.context.WebContext;
-import org.ping.study.spring.json.annotation.AllowProperty;
-import org.ping.study.spring.json.annotation.IgnoreProperties;
-import org.ping.study.spring.json.annotation.IgnoreProperty;
-import org.ping.study.spring.json.service.FilterPropertyHandler;
-import org.ping.study.util.EntityHelper;
-import org.ping.study.util.StringHelper;
+import org.ping.core.json.annotation.AllowProperty;
+import org.ping.core.json.annotation.IgnoreProperties;
+import org.ping.core.json.annotation.IgnoreProperty;
+import org.ping.core.json.service.FilterPropertyHandler;
+import org.ping.core.util.ReflectUtil;
+import org.ping.core.util.StringHelper;
+import org.ping.core.web.WebContext;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
@@ -140,7 +140,7 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 		String[] allowNames = property.name();
 		Class<?> pojoClass = property.pojo();
 
-		Collection<String> ignoreProperties = EntityHelper
+		Collection<String> ignoreProperties = ReflectUtil
 				.getUnstaticClassFieldNameCollection(pojoClass);
 
 		Collection<String> allowNameCollection = new ArrayList<String>();

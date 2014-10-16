@@ -2,12 +2,12 @@ package org.ping.study.spring.controller;
 
 import javax.validation.Valid;
 
+import org.ping.core.json.annotation.IgnoreProperty;
+import org.ping.core.json.annotation.ObjectJsonFilter;
+import org.ping.core.json.annotation.ObjectJsonFilters;
 import org.ping.study.spring.bean.Mobile;
 import org.ping.study.spring.bean.MobileFilter;
 import org.ping.study.spring.bean.Person;
-import org.ping.study.spring.json.annotation.IgnoreProperty;
-import org.ping.study.spring.json.annotation.ObjectJsonFilter;
-import org.ping.study.spring.json.annotation.ObjectJsonFilters;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;

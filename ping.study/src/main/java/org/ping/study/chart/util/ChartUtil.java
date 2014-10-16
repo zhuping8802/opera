@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.servlet.ServletUtilities;
-import org.ping.study.util.Identities;
+import org.ping.core.util.Identities;
 
 
 /**

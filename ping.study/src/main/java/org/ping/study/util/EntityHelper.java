@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.ping.core.util.StringHelper;
+
 /**
  * 实体帮助类
  * @author ping.zhu

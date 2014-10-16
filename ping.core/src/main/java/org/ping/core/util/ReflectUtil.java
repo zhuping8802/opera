@@ -1,7 +1,10 @@
-package org.ping.study.util;
+package org.ping.core.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * 反射工具类
@@ -100,5 +103,27 @@ public final class ReflectUtil {
 				field.setAccessible(false);
 			}
 		}
+	}
+	
+	/**
+	 * 获取Class类的所有非静态字段名
+	 * 
+	 * @param clazz
+	 * @return
+	 */
+	public static Collection<String> getUnstaticClassFieldNameCollection(Class<?> clazz) {
+		if (clazz == null) {
+			throw new NullPointerException("传入的clazz为空对象！");
+		}
+		Field[] fields = clazz.getDeclaredFields();
+		int length = fields.length;
+		Collection<String> fieldNames = new ArrayList<String>();
+		for (int i = 0; i < length; i++) {
+			Field field = fields[i];
+			if (!Modifier.isStatic(field.getModifiers())) {
+				fieldNames.add(field.getName());
+			}
+		}
+		return fieldNames;
 	}
 }

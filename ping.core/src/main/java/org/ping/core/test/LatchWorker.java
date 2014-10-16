@@ -2,6 +2,14 @@ package org.ping.core.test;
 
 import java.util.concurrent.CountDownLatch;
 
+/**
+ * 
+ * <p>TypeName: LatchWorker</p>
+ * <p>Description: (并发测试工作线程)</p>
+ * <p>date : 2014年10月16日 下午4:04:33 </p>
+ * @author ping
+ * @version 1.0
+ */
 public abstract class LatchWorker implements Runnable {
 
 	private CountDownLatch startSignal;

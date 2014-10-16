@@ -1,4 +1,4 @@
-package org.ping.study.spring.json.annotation;
+package org.ping.core.json.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -1,4 +1,4 @@
-package org.ping.study.util;
+package org.ping.core.util;
 
 import java.io.IOException;
 import java.io.StringReader;

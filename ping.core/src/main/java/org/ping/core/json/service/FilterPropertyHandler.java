@@ -1,4 +1,4 @@
-package org.ping.study.spring.json.service;
+package org.ping.core.json.service;
 
 import java.lang.reflect.Method;
 
