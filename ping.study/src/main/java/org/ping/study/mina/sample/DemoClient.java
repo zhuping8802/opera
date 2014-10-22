@@ -4,7 +4,6 @@ import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 import java.util.Scanner;
 
-import org.apache.mina.core.RuntimeIoException;
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.service.IoConnector;
@@ -49,7 +48,8 @@ public class DemoClient {
 			}
 			scanner.close();
 			System.out.println("终止内容输入");
-			session.close();
+//			session.close();
+			session.close(true);
 		} catch (Exception e) {
 			System.out.println("Client:" + e.getMessage());
 		}
