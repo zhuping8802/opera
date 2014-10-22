@@ -8,7 +8,8 @@
 		<artifactId>ping.opera</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-
+	
+	<groupId>org.ping</groupId>
 	<artifactId>ping.core</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>ping.core</name>
