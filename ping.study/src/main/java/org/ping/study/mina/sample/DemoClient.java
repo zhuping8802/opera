@@ -38,7 +38,7 @@ public class DemoClient {
 			String message = null;
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("请输入内容：");
-			while(true){
+			while(session.isConnected()){
 				message = scanner.next();
 				if(!"exit".equalsIgnoreCase(message)){
 					session.write(message);
@@ -59,6 +59,7 @@ public class DemoClient {
 			System.out.println("================");
 			session.getCloseFuture().awaitUninterruptibly();
 		}
+		// 释放资源
 		connector.dispose();
 		System.out.println("Client:失去连接");
 	}

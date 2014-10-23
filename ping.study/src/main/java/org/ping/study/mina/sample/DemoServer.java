@@ -30,7 +30,7 @@ public class DemoServer {
 			// 设置读取缓存区大小
 			ioSessionConfig.setReadBufferSize(2048);
 			// 设置10秒无操作进入空闲状态
-			ioSessionConfig.setIdleTime(IdleStatus.BOTH_IDLE, 10);
+			ioSessionConfig.setIdleTime(IdleStatus.BOTH_IDLE, 60);
 			// 设置handler
 			acceptor.setHandler(new DemoServerHandler());
 			// 绑定端口
