@@ -27,7 +27,6 @@ import javassist.bytecode.annotation.StringMemberValue;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.ping.core.json.annotation.AllowProperty;
 import org.ping.core.json.annotation.IgnoreProperties;
 import org.ping.core.json.annotation.IgnoreProperty;
@@ -35,6 +34,8 @@ import org.ping.core.json.service.FilterPropertyHandler;
 import org.ping.core.util.ReflectUtil;
 import org.ping.core.util.StringHelper;
 import org.ping.core.web.WebContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
@@ -47,7 +48,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 @Component("javassistFilterPropertyHandler")
 public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 
-	public static final Logger LOG = Logger.getLogger(JavassistFilterPropertyHandler.class);
+	public static final Logger LOGGER = LoggerFactory.getLogger(JavassistFilterPropertyHandler.class);
 
 	/**
 	 * 注解的方法对应生成的代理类映射表
@@ -286,7 +287,7 @@ public class JavassistFilterPropertyHandler implements FilterPropertyHandler {
 			HttpServletResponse response = WebContext.getInstance().getResponse();
 			writeJson(mapper, response, object);
 		} catch (Exception e) {
-			LOG.error(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 	}
 

@@ -2,7 +2,6 @@ package org.ping.core.json.aop;
 
 import java.lang.reflect.Method;
 
-import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
@@ -10,6 +9,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.ping.core.json.service.FilterPropertyHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Aspect
 public class IgnorePropertyAspect {
 
-	private static final Logger LOG = Logger.getLogger(IgnorePropertyAspect.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(IgnorePropertyAspect.class);
 	
 	private boolean isDynamicProperties = true;
 
@@ -59,13 +60,13 @@ public class IgnorePropertyAspect {
 				return null;
 			}
 		} catch (Exception e) {
-			LOG.error(this.getClass().getName() + ".doAround==============" + e.getMessage());
+			LOGGER.error(this.getClass().getName() + ".doAround=============={}", e.getMessage());
 		}
 		return returnVal;
 	}
 
 	@AfterThrowing(pointcut = "anyMethod()", throwing = "e")
 	public void doAfterThrowing(Exception e) {
-		LOG.error(this.getClass().getName() + ".doAfterThrowing==============" + e.getMessage());
+		LOGGER.error(this.getClass().getName() + ".doAfterThrowing=============={}", e.getMessage());
 	}
 }

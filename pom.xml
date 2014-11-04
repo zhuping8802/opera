@@ -17,143 +17,17 @@
 		<spring-version>3.2.8.RELEASE</spring-version>
 		<junit-version>4.10</junit-version>
 		<aspectj-version>1.7.4</aspectj-version>
-		<org.slf4j.version>1.7.5</org.slf4j.version>
+		<org.slf4j.version>1.6.6</org.slf4j.version>
 		<javassist.version>3.18.0-GA</javassist.version>
 		<mina.version>2.0.8</mina.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.tika</groupId>
-			<artifactId>tika-core</artifactId>
-			<version>1.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.mina</groupId>
-			<artifactId>mina-statemachine</artifactId>
-			<version>${mina.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.mina</groupId>
-			<artifactId>mina-integration-jmx</artifactId>
-			<version>${mina.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>mina-core</artifactId>
-					<groupId>org.apache.mina</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>mina-integration-beans</artifactId>
-					<groupId>org.apache.mina</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>mina-integration-ognl</artifactId>
-					<groupId>org.apache.mina</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.mina</groupId>
-			<artifactId>mina-integration-xbean</artifactId>
-			<version>${mina.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>mina-core</artifactId>
-					<groupId>org.apache.mina</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>mina-integration-beans</artifactId>
-					<groupId>org.apache.mina</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.mina</groupId>
-			<artifactId>mina-filter-compression</artifactId>
-			<version>${mina.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>mina-core</artifactId>
-					<groupId>org.apache.mina</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.mina</groupId>
-			<artifactId>mina-http</artifactId>
-			<version>${mina.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>mina-core</artifactId>
-					<groupId>org.apache.mina</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.mina</groupId>
-			<artifactId>mina-transport-apr</artifactId>
-			<version>${mina.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>mina-core</artifactId>
-					<groupId>org.apache.mina</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.javassist</groupId>
-			<artifactId>javassist</artifactId>
-			<version>${javassist.version}</version>
-		</dependency>
 
-		<!-- Test -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit-version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- Spring -->
+		<!-- Spring start-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring-version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -216,8 +90,56 @@
 			<version>${spring-version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- Spring end-->
+		
+		<!-- mina start -->
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-statemachine</artifactId>
+			<version>${mina.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-integration-jmx</artifactId>
+			<version>${mina.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-integration-xbean</artifactId>
+			<version>${mina.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-filter-compression</artifactId>
+			<version>${mina.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-http</artifactId>
+			<version>${mina.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-transport-apr</artifactId>
+			<version>${mina.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>${javassist.version}</version>
+		</dependency>
+		<!-- mina end -->
 
-		<!-- AspectJ -->
+		<!-- Test start -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit-version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Test end -->
+
+		<!-- AspectJ start -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
@@ -228,8 +150,15 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${aspectj-version}</version>
 		</dependency>
+		<!-- Cglib -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>3.0</version>
+		</dependency>
+		<!-- AspectJ end -->
 
-		<!-- Servlet -->
+		<!-- Servlet start-->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -252,29 +181,25 @@
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
 		</dependency>
+		<!-- Servlet end-->
 
-		<!-- Freechart -->
+		<!-- Freechart start-->
 		<dependency>
 			<groupId>jfree</groupId>
 			<artifactId>jfreechart</artifactId>
 			<version>1.0.13</version>
 		</dependency>
+		<!-- Freechart end-->
 
-		<!-- Cglib -->
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>3.0</version>
-		</dependency>
-
-		<!-- Sitemesh -->
+		<!-- Sitemesh start-->
 		<dependency>
 			<groupId>opensymphony</groupId>
 			<artifactId>sitemesh</artifactId>
 			<version>2.4.2</version>
 		</dependency>
+		<!-- Sitemesh end-->
 
-		<!-- Json -->
+		<!-- Json start-->
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
@@ -305,8 +230,15 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>${faster-jackson-version}</version>
 		</dependency>
+		<!-- Json end-->
 
-		<!-- Logging -->
+		<!-- Logging start-->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
@@ -318,39 +250,8 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${org.slf4j.version}</version>
 			<scope>runtime</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
-
-		<!-- JSR 303 with Hibernate Validator -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>4.1.0.Final</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>2.0</version>
-		</dependency>
-
-
-		<!-- @Inject -->
-		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-			<version>1</version>
-		</dependency>
+		<!-- Logging end-->
 	</dependencies>
 	<build>
 		<plugins>
