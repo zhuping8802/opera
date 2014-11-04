@@ -12,9 +12,9 @@
     http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- 强制使用CGLIB代理 -->
-	<!-- <aop:aspectj-autoproxy proxy-target-class="true" /> -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<!-- 默认配置 -->
-	<aop:aspectj-autoproxy/>
+	<!-- <aop:aspectj-autoproxy/> -->
 
 	<!-- spring 注解支撑 -->
 	<context:annotation-config />
@@ -32,5 +32,6 @@
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
+	<import resource="classpath:config/spring/spring-jax-ws.xml" />
 	<import resource="classpath:config/spring/spring-mvc.xml" />
 </beans>
