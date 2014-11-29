@@ -1,4 +1,4 @@
-package common;
+package org.ping.core.util;
 
 import java.io.IOException;
 import java.net.DatagramPacket;

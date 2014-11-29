@@ -1,4 +1,4 @@
-package common;
+package org.ping.core.util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.logging.Logger;
