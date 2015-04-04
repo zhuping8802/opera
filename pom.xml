@@ -347,10 +347,8 @@
 		</plugins>
 	</build>
 	<modules>
-		<module>ping.spring_boot</module>
 		<module>ping.study</module>
 		<module>ping.core</module>
-		<module>ping.main</module>
     	<module>ping.solr</module>
   </modules>
 </project>
