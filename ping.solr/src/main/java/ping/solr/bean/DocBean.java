@@ -1,7 +1,5 @@
 package ping.solr.bean;
 
-import java.util.Date;
-
 import org.apache.solr.client.solrj.beans.Field;
 
 public class DocBean {
@@ -10,25 +8,46 @@ public class DocBean {
 	private String id;
 
 	@Field
-	private String name;
-
+	private long vehicleId;
+	
 	@Field
-	private String summary;
-
+	private long belongUid;
+	
 	@Field
-	private String author;
-
+	private Byte numberAuth;
+	
 	@Field
-	private Date date;
-
+	private Byte licenseAuth;
+	
 	@Field
-	private String title;
-
+	private Byte type;
+	
 	@Field
-	private String keywords;
-
+	private Integer capacity;
+	
 	@Field
-	private String content;
+	private String contactPhone;
+	
+	@Field
+	private Integer length;
+	
+	@Field
+	private Double longitude;
+	
+	@Field
+	private Double latitude;
+	
+	@Field
+	private String lngLat;
+	
+	@Field
+	private Byte valid;
+	
+	@Field
+	private String beginAddress;
+	
+	@Field
+	private String endAddress;
 
 	public String getId() {
 		return id;
@@ -38,68 +57,130 @@ public class DocBean {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public long getVehicleId() {
+		return vehicleId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setVehicleId(long vehicleId) {
+		this.vehicleId = vehicleId;
 	}
 
-	public String getSummary() {
-		return summary;
+	public long getBelongUid() {
+		return belongUid;
 	}
 
-	public void setSummary(String summary) {
-		this.summary = summary;
+	public void setBelongUid(long belongUid) {
+		this.belongUid = belongUid;
 	}
 
-	public String getAuthor() {
-		return author;
+	public Byte getNumberAuth() {
+		return numberAuth;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setNumberAuth(Byte numberAuth) {
+		this.numberAuth = numberAuth;
 	}
 
-	public Date getDate() {
-		return date;
+	public Byte getLicenseAuth() {
+		return licenseAuth;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setLicenseAuth(Byte licenseAuth) {
+		this.licenseAuth = licenseAuth;
 	}
 
-	public String getTitle() {
-		return title;
+	public Byte getType() {
+		return type;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setType(Byte type) {
+		this.type = type;
 	}
 
-	public String getKeywords() {
-		return keywords;
+	public Integer getCapacity() {
+		return capacity;
 	}
 
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
+	public void setCapacity(Integer capacity) {
+		this.capacity = capacity;
 	}
 
-	public String getContent() {
-		return content;
+	public String getContactPhone() {
+		return contactPhone;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setContactPhone(String contactPhone) {
+		this.contactPhone = contactPhone;
+	}
+
+	public Integer getLength() {
+		return length;
+	}
+
+	public void setLength(Integer length) {
+		this.length = length;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+		this.lngLat = getLongitude() + " " + getLatitude();
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+		this.lngLat = getLongitude() + " " + getLatitude();
+	}
+
+	public String getLngLat() {
+		return lngLat;
+	}
+
+	public void setLngLat(String lngLat) {
+		this.lngLat = lngLat;
+	}
+
+	public Byte getValid() {
+		return valid;
+	}
+
+	public void setValid(Byte valid) {
+		this.valid = valid;
+	}
+
+	public String getBeginAddress() {
+		return beginAddress;
+	}
+
+	public void setBeginAddress(String beginAddress) {
+		this.beginAddress = beginAddress;
+	}
+
+	public String getEndAddress() {
+		return endAddress;
+	}
+
+	public void setEndAddress(String endAddress) {
+		this.endAddress = endAddress;
 	}
 
 	@Override
 	public String toString() {
-		return "DocBean [id=" + id + ", name=" + name + ", summary=" + summary
-				+ ", author=" + author + ", date=" + date + ", title=" + title
-				+ ", keywords=" + keywords + ", content=" + content + "]";
+		return "DocBean [id=" + id + ", vehicleId=" + vehicleId
+				+ ", belongUid=" + belongUid + ", numberAuth=" + numberAuth
+				+ ", licenseAuth=" + licenseAuth + ", type=" + type
+				+ ", capacity=" + capacity + ", contactPhone=" + contactPhone
+				+ ", length=" + length + ", longitude=" + longitude
+				+ ", latitude=" + latitude + ", lngLat=" + lngLat + ", valid="
+				+ valid + ", beginAddress=" + beginAddress + ", endAddress="
+				+ endAddress + "]";
 	}
-
 	
 }
