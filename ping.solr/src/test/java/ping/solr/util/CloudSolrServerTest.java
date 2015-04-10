@@ -24,5 +24,4 @@ public class CloudSolrServerTest {
 			query.destory();
 		}
 	}
-
 }
