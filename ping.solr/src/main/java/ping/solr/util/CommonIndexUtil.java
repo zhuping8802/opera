@@ -1,6 +1,7 @@
 package ping.solr.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -239,5 +240,51 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 		}
 		
 		solrServer.add(documents, commitWithinMs);
+	}
+	
+	/**
+	 * add bean
+	 * 
+	 * @param bean
+	 * @param commit 是否立即提交
+	 */
+	public void addBean(Object bean, boolean commit) throws Exception {
+		solrServer.addBean(bean);
+		if(commit){
+			commit();
+		}
+	}
+
+	/**
+	 * add bean
+	 * 
+	 * @param bean
+	 * @param commitWithinMs
+	 */
+	public void addBean(Object bean, int commitWithinMs) throws Exception {
+		solrServer.addBean(bean, commitWithinMs);
+	}
+
+	/**
+	 * add beans
+	 * 
+	 * @param beans
+	 * @param commit 是否立即提交
+	 */
+	public void addBeans(Collection<Object> beans, boolean commit) throws Exception {
+		solrServer.addBeans(beans);
+		if(commit){
+			commit();
+		}
+	}
+
+	/**
+	 * add beans
+	 * 
+	 * @param beans
+	 * @param commitWithinMs
+	 */
+	public void addBeans(Collection<Object> beans, int commitWithinMs) throws Exception {
+		solrServer.addBeans(beans, commitWithinMs);
 	}
 }
