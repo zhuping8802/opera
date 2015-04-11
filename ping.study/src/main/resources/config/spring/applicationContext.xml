@@ -20,18 +20,32 @@
 	<context:annotation-config />
 	
 	<!-- 注册对应包下的controller到上下文中 -->
-	<context:component-scan base-package="org.ping" use-default-filters="false">
-		<context:include-filter type="regex" expression="org.ping..*Controller"/>
-		<context:include-filter type="regex" expression="org.ping..*Action"/>
-		<context:include-filter type="regex" expression="org.ping..*Service"/>
-		<context:include-filter type="regex" expression="org.ping..*ServiceImpl"/>
-		<context:include-filter type="regex" expression="org.ping..*Dao"/>
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	<!-- 自动扫描组件，这里要把web下面的 controller去除，他们是在spring3-servlet.xml中配置的，如果不去除会影响事务管理的。 -->
+	<context:component-scan base-package="org.ping" annotation-config="true">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
+	<!-- 应用属性文件读入-->
+    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean"
+          lazy-init="false">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath*:**/solr.properties</value>
+            </list>
+        </property>
+    </bean>
+    
+    <!-- PropertyPlaceholderConfigurer,用于spring ${placeholder}的解析 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          lazy-init="false">
+        <property name="properties" ref="configProperties"/>
+    </bean>
+    
+    <!-- rest支持 -->
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate"></bean>
+    
 	<!-- <import resource="classpath:config/spring/spring-jax-ws.xml" /> -->
 	<import resource="classpath:config/spring/spring-mvc.xml" />
+	<import resource="classpath:config/spring/spring-solr.xml" />
 </beans>
