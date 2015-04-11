@@ -14,13 +14,13 @@ public class DocBean {
 	private long belongUid;
 	
 	@Field
-	private Byte numberAuth;
+	private Integer numberAuth;
 	
 	@Field
-	private Byte licenseAuth;
+	private Integer licenseAuth;
 	
 	@Field
-	private Byte type;
+	private Integer type;
 	
 	@Field
 	private Integer capacity;
@@ -41,7 +41,7 @@ public class DocBean {
 	private String lngLat;
 	
 	@Field
-	private Byte valid;
+	private Integer valid;
 	
 	@Field
 	private String beginAddress;
@@ -73,27 +73,27 @@ public class DocBean {
 		this.belongUid = belongUid;
 	}
 
-	public Byte getNumberAuth() {
+	public Integer getNumberAuth() {
 		return numberAuth;
 	}
 
-	public void setNumberAuth(Byte numberAuth) {
+	public void setNumberAuth(Integer numberAuth) {
 		this.numberAuth = numberAuth;
 	}
 
-	public Byte getLicenseAuth() {
+	public Integer getLicenseAuth() {
 		return licenseAuth;
 	}
 
-	public void setLicenseAuth(Byte licenseAuth) {
+	public void setLicenseAuth(Integer licenseAuth) {
 		this.licenseAuth = licenseAuth;
 	}
 
-	public Byte getType() {
+	public Integer getType() {
 		return type;
 	}
 
-	public void setType(Byte type) {
+	public void setType(Integer type) {
 		this.type = type;
 	}
 
@@ -147,11 +147,11 @@ public class DocBean {
 		this.lngLat = lngLat;
 	}
 
-	public Byte getValid() {
+	public Integer getValid() {
 		return valid;
 	}
 
-	public void setValid(Byte valid) {
+	public void setValid(Integer valid) {
 		this.valid = valid;
 	}
 
