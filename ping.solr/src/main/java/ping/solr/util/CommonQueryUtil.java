@@ -11,7 +11,7 @@ import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.params.SolrParams;
 
-public class CommonQueryUtil extends SolrServerUtil {
+public class CommonQueryUtil extends SolrServer {
 
 	/**
 	 * Query.
@@ -25,7 +25,7 @@ public class CommonQueryUtil extends SolrServerUtil {
 	public List<Map<String, Object>> query(SolrParams params, String[] fields) throws Exception {
 		List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
 
-		SolrDocumentList documents = solrServer.query(params).getResults();
+		SolrDocumentList documents = solrClient.query(params).getResults();
 		Iterator<SolrDocument> iter = documents.iterator();
 		while (iter.hasNext()) {
 			SolrDocument doc = iter.next();
@@ -56,7 +56,7 @@ public class CommonQueryUtil extends SolrServerUtil {
 			query.setQuery(item);
 		}
 
-		SolrDocumentList documents = solrServer.query(query).getResults();
+		SolrDocumentList documents = solrClient.query(query).getResults();
 		Iterator<SolrDocument> iter = documents.iterator();
 		while (iter.hasNext()) {
 			SolrDocument doc = iter.next();
@@ -89,7 +89,7 @@ public class CommonQueryUtil extends SolrServerUtil {
 		query.setStart(start);
 		query.setRows(count);
 
-		SolrDocumentList documents = solrServer.query(query).getResults();
+		SolrDocumentList documents = solrClient.query(query).getResults();
 		Iterator<SolrDocument> iter = documents.iterator();
 		while (iter.hasNext()) {
 			SolrDocument doc = iter.next();
@@ -136,7 +136,7 @@ public class CommonQueryUtil extends SolrServerUtil {
 			}
 		}
 
-		SolrDocumentList documents = solrServer.query(query).getResults();
+		SolrDocumentList documents = solrClient.query(query).getResults();
 		Iterator<SolrDocument> iterRtn = documents.iterator();
 		while (iterRtn.hasNext()) {
 			SolrDocument doc = iterRtn.next();
@@ -151,7 +151,7 @@ public class CommonQueryUtil extends SolrServerUtil {
 	}
 	
 	public <T> List<T> queryBeans(SolrParams params, Class<T> clazz) throws Exception{
-		return solrServer.query(params).getBeans(clazz);
+		return solrClient.query(params).getBeans(clazz);
 	}
 	
 	public <T> List<T> queryBeans(Class<T> clazz, Map<String, String> sorts, int start, int count, String... fq) throws Exception{
@@ -174,7 +174,7 @@ public class CommonQueryUtil extends SolrServerUtil {
 			}
 		}
 
-		return solrServer.query(query).getBeans(clazz);
+		return solrClient.query(query).getBeans(clazz);
 	}
 	
 	public <T> List<T> queryBeans(Class<T> clazz, int start, int count, String... fq) throws Exception{
@@ -185,7 +185,7 @@ public class CommonQueryUtil extends SolrServerUtil {
 		query.setStart(start);
 		query.setRows(count);
 
-		return solrServer.query(query).getBeans(clazz);
+		return solrClient.query(query).getBeans(clazz);
 	}
 	
 	public <T> List<T> queryBeans(Class<T> clazz, String... fq) throws Exception{
@@ -194,6 +194,6 @@ public class CommonQueryUtil extends SolrServerUtil {
 			query.setQuery(item);
 		}
 
-		return solrServer.query(query).getBeans(clazz);
+		return solrClient.query(query).getBeans(clazz);
 	}
 }

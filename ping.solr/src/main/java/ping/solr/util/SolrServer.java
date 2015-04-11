@@ -1,17 +1,17 @@
 package ping.solr.util;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.solr.client.solrj.SolrServer;
-import org.apache.solr.client.solrj.impl.CloudSolrServer;
-import org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrServer;
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.impl.CloudSolrClient;
+import org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SolrServerUtil {
+public class SolrServer {
 
-	private static final Logger logger = LoggerFactory.getLogger(SolrServerUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(SolrServer.class);
 
-	protected SolrServer solrServer = null;
+	protected SolrClient solrClient = null;
 	protected int queeSize = QUEE_SIZE;
 	protected int threadCount = THREAD_COUNT;
 	protected int zkClientTimeout = ZKCLIENTTIMEOUT;
@@ -33,10 +33,11 @@ public class SolrServerUtil {
 			throw new RuntimeException("initCurrentSolrServer error, url is not null.");
 		}
 		
-		if (solrServer == null) {
+		if (solrClient == null) {
 			try {
-				solrServer = new ConcurrentUpdateSolrServer(solrUrl, queeSize <= 0 ? QUEE_SIZE : queeSize,
+				ConcurrentUpdateSolrClient concurrentUpdateSolrClient = new ConcurrentUpdateSolrClient(solrUrl, queeSize <= 0 ? QUEE_SIZE : queeSize,
 						threadCount <= 0 ? THREAD_COUNT : threadCount);
+				solrClient = concurrentUpdateSolrClient;
 			} catch (Exception e) {
 				logger.error("initCurrentSolrServer error", e);
 			}
@@ -53,14 +54,14 @@ public class SolrServerUtil {
 			throw new RuntimeException("default collection is not null.");
 		}
 		
-		if(solrServer == null){
+		if(solrClient == null){
 			try {
-				CloudSolrServer cloudSolrServer = new CloudSolrServer(zkHost);
-				cloudSolrServer.setZkClientTimeout(zkClientTimeout <= 0 ? ZKCLIENTTIMEOUT : zkClientTimeout); 
-				cloudSolrServer.setZkConnectTimeout(zkConnectTimeout <= 0 ? ZKCONNECTTIMEOUT : zkConnectTimeout); 
-				cloudSolrServer.setDefaultCollection(defaultCollection);
-				cloudSolrServer.connect();
-				solrServer = cloudSolrServer;
+				CloudSolrClient cloudSolrClient = new CloudSolrClient(zkHost);
+				cloudSolrClient.setZkClientTimeout(zkClientTimeout <= 0 ? ZKCLIENTTIMEOUT : zkClientTimeout); 
+				cloudSolrClient.setZkConnectTimeout(zkConnectTimeout <= 0 ? ZKCONNECTTIMEOUT : zkConnectTimeout); 
+				cloudSolrClient.setDefaultCollection(defaultCollection);
+				cloudSolrClient.connect();
+				solrClient = cloudSolrClient;
 			} catch (Exception e) {
 				logger.error("initColudSolrServer error", e);
 			}
@@ -79,9 +80,9 @@ public class SolrServerUtil {
 	}
 
 	protected void destory() {
-		if (solrServer != null) {
-			solrServer.shutdown();
-			solrServer = null;
+		if (solrClient != null) {
+			solrClient.shutdown();
+			solrClient = null;
 		}
 		logger.info("SolrServer closed");
 	}

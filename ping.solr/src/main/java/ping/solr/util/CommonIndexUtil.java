@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.apache.solr.common.SolrInputDocument;
 
-public abstract class CommonIndexUtil extends SolrServerUtil {
+public abstract class CommonIndexUtil extends SolrServer {
 
 	/**
 	 * Detele lucene by ID
@@ -17,7 +17,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 	 * @param commit 是否立即提交
 	 */
 	public void deleteById(String id, boolean commit) throws Exception {
-		solrServer.deleteById(id);
+		solrClient.deleteById(id);
 		if(commit){
 			commit();
 		}
@@ -31,7 +31,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 	 *            多少毫秒之内提交
 	 */
 	public void deleteById(String id, int commitWithinMs) throws Exception {
-		solrServer.deleteById(id, commitWithinMs);
+		solrClient.deleteById(id, commitWithinMs);
 	}
 
 	/**
@@ -41,7 +41,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 	 * @param commit 是否立即提交
 	 */
 	public void deleteById(List<String> strings, boolean commit) throws Exception {
-		solrServer.deleteById(strings);
+		solrClient.deleteById(strings);
 		if(commit){
 			commit();
 		}
@@ -56,7 +56,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 	 */
 	public void deleteById(List<String> strings, int commitWithinMs)
 			throws Exception {
-		solrServer.deleteById(strings, commitWithinMs);
+		solrClient.deleteById(strings, commitWithinMs);
 	}
 
 	/**
@@ -67,7 +67,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 	 * @param commit 是否立即提交
 	 */
 	public void deleteByQuery(String query, boolean commit) throws Exception {
-		solrServer.deleteByQuery(query);
+		solrClient.deleteByQuery(query);
 		if(commit){
 			commit();
 		}
@@ -83,7 +83,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 	 */
 	public void deleteByQuery(String query, int commitWithinMs)
 			throws Exception {
-		solrServer.deleteByQuery(query, commitWithinMs);
+		solrClient.deleteByQuery(query, commitWithinMs);
 	}
 
 	/**
@@ -104,7 +104,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 	 */
 	public void commit(boolean waitFlush, boolean waitSearcher)
 			throws Exception {
-		solrServer.commit(waitFlush, waitSearcher);
+		solrClient.commit(waitFlush, waitSearcher);
 	}
 
 	/**
@@ -126,7 +126,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 	 */
 	public void optimize(boolean waitFlush, boolean waitSearcher)
 			throws Exception {
-		solrServer.optimize(waitFlush, waitSearcher);
+		solrClient.optimize(waitFlush, waitSearcher);
 		commit(waitFlush, waitSearcher);
 	}
 	
@@ -135,7 +135,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 	 * @throws Exception
 	 */
 	public void rollback() throws Exception{
-		solrServer.rollback();
+		solrClient.rollback();
 	}
 	
 	/**
@@ -155,7 +155,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 			Object value = doc.get(key);
 			document.addField(key, value);
 		}
-		solrServer.add(document);
+		solrClient.add(document);
 		if(commit){
 			commit();
 		}
@@ -179,7 +179,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 			Object value = doc.get(key);
 			document.addField(key, value);
 		}
-		solrServer.add(document, commitWithinMs);
+		solrClient.add(document, commitWithinMs);
 	}
 	
 	/**
@@ -207,7 +207,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 			documents.add(document);
 		}
 		
-		solrServer.add(documents);
+		solrClient.add(documents);
 		if(commit){
 			commit();
 		}
@@ -239,7 +239,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 			documents.add(document);
 		}
 		
-		solrServer.add(documents, commitWithinMs);
+		solrClient.add(documents, commitWithinMs);
 	}
 	
 	/**
@@ -249,7 +249,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 	 * @param commit 是否立即提交
 	 */
 	public void addBean(Object bean, boolean commit) throws Exception {
-		solrServer.addBean(bean);
+		solrClient.addBean(bean);
 		if(commit){
 			commit();
 		}
@@ -262,7 +262,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 	 * @param commitWithinMs
 	 */
 	public void addBean(Object bean, int commitWithinMs) throws Exception {
-		solrServer.addBean(bean, commitWithinMs);
+		solrClient.addBean(bean, commitWithinMs);
 	}
 
 	/**
@@ -272,7 +272,7 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 	 * @param commit 是否立即提交
 	 */
 	public void addBeans(Collection<Object> beans, boolean commit) throws Exception {
-		solrServer.addBeans(beans);
+		solrClient.addBeans(beans);
 		if(commit){
 			commit();
 		}
@@ -285,6 +285,6 @@ public abstract class CommonIndexUtil extends SolrServerUtil {
 	 * @param commitWithinMs
 	 */
 	public void addBeans(Collection<Object> beans, int commitWithinMs) throws Exception {
-		solrServer.addBeans(beans, commitWithinMs);
+		solrClient.addBeans(beans, commitWithinMs);
 	}
 }
