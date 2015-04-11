@@ -1,4 +1,4 @@
-package ping.solr.bean;
+package org.ping.solr.bean;
 
 import org.apache.solr.client.solrj.beans.Field;
 

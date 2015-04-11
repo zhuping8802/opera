@@ -1,4 +1,4 @@
-package ping.solr.util;
+package org.ping.solr.util;
 
 import java.util.HashMap;
 

@@ -1,10 +1,9 @@
-package ping.solr.util;
+package org.ping.solr.util;
 
 import java.util.List;
 
 import org.apache.solr.client.solrj.SolrQuery;
-
-import ping.solr.bean.DocBean;
+import org.ping.solr.bean.DocBean;
 
 public class CloudSolrServerTest {
 
