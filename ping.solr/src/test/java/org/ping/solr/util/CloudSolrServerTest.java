@@ -13,7 +13,8 @@ public class CloudSolrServerTest {
 		query.setDefaultCollection("eunke_vehicles");
 		query.init();
 		try {
-			List<DocBean> list = query.queryBeans(new SolrQuery("*:*"), DocBean.class);
+			SolrQuery solrQuery = new SolrQuery("*:*"); 
+			List<DocBean> list = query.queryBeans(solrQuery, DocBean.class);
 			for(DocBean bean : list){
 				System.out.println(bean);
 			}

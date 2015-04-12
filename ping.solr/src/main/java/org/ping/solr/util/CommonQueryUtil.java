@@ -9,23 +9,22 @@ import java.util.Map;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
-import org.apache.solr.common.params.SolrParams;
 
 public class CommonQueryUtil extends SolrServer {
 
 	/**
 	 * Query.
 	 * 
-	 * @param params
+	 * @param solrQuery
 	 *            查询参数
 	 * @param fields
 	 *            返回字段
 	 * @return
 	 */
-	public List<Map<String, Object>> query(SolrParams params, String[] fields) throws Exception {
+	public List<Map<String, Object>> query(SolrQuery solrQuery, String[] fields) throws Exception {
 		List<Map<String, Object>> results = new ArrayList<Map<String, Object>>();
 
-		SolrDocumentList documents = solrClient.query(params).getResults();
+		SolrDocumentList documents = solrClient.query(solrQuery).getResults();
 		Iterator<SolrDocument> iter = documents.iterator();
 		while (iter.hasNext()) {
 			SolrDocument doc = iter.next();
@@ -150,8 +149,8 @@ public class CommonQueryUtil extends SolrServer {
 		return results;
 	}
 	
-	public <T> List<T> queryBeans(SolrParams params, Class<T> clazz) throws Exception{
-		return solrClient.query(params).getBeans(clazz);
+	public <T> List<T> queryBeans(SolrQuery solrQuery, Class<T> clazz) throws Exception{
+		return solrClient.query(solrQuery).getBeans(clazz);
 	}
 	
 	public <T> List<T> queryBeans(Class<T> clazz, Map<String, String> sorts, int start, int count, String... fq) throws Exception{
